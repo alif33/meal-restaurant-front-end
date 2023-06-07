@@ -3,7 +3,6 @@ import {
   Routes, 
   Route 
 } from "react-router-dom";
-import HomePage from "./pages/HomePage";
 import Users from "./pages/Users";
 import AboutUs from "./pages/restaurant/AboutUs";
 import CusineTypes from "./pages/restaurant/CusineTypes";
@@ -18,12 +17,13 @@ import Schedule from "./pages/restaurant/Schedule";
 import DeliveryZones from "./pages/restaurant/DeliveryZones";
 import Banners from "./pages/restaurant/Banners";
 import Photos from "./pages/restaurant/Photos";
+import Login from "./pages/Login";
+import ForgetPassword from "./pages/ForgetPassword";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<HomePage />} />
         
         <Route path="/users" element={<Users/>} />
         <Route path="/restaurants" element={<Resturants/>} />
@@ -39,6 +39,8 @@ function App() {
         <Route path="/photos" element={<Photos/>} />
         <Route path="/about-us" element={<AboutUs/>} />
         <Route path="/cusine-types" element={<CusineTypes/>} />
+        <Route path="/" element={<Login />} />
+        <Route path="/forget-password" element={<ForgetPassword />} />
       </Routes>
     </BrowserRouter>
   );

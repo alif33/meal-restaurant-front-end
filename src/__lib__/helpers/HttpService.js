@@ -1,7 +1,7 @@
 import axios from "axios";
 import { toast } from "react-hot-toast";
 
-export const APP_URL = `${process.env.NODE_ENV==="development"? 
+export const APP_URL = `${ process.env.NODE_ENV==="development"? 
 "http://localhost:4000/": 
 "https://apimeal.vercel.app/"
 }`;

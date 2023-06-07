@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast, { Toaster } from "react-hot-toast";
 import {  useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { LogedIn } from "../store/auth/actions";
 import { postData } from "../__lib__/helpers/HttpService";
 
@@ -38,11 +38,15 @@ const Login = () => {
           reset();
           navigate("/dashboard");
         }
+        if(res?.invalid){
+          toast.error(res?.message);
+        }
       });
     };
 
     return (
       <div>
+        <Toaster position="top-center" reverseOrder={false} />
         <div className="card-img w-36 h-40 absolute top-[5%] left-[5%] ">
           <img width="249" height="285" src="/img/meal-now-logo.png" alt="" />
         </div>
@@ -122,7 +126,9 @@ const Login = () => {
             </div>
             <div className="flex items-center justify-between mt-10 ">
               <p className=" text-[#212121] text-sm font-mono ">
-                Forget password?
+                <Link to="/forget-password">
+                  Forget password?
+                </Link>
               </p>
               <button className=" bg-[#00c220] border border-solid border-[#00c220] rounded-3xl flex justify-between items-center text-white text-md font-mono hover:bg-transparent transition-all duration-300 ease-in-out focus:outline-none active:outline-none  hover:text-black cursor-pointer py-2 px-12 font-semibold  ">
                 LOGIN
