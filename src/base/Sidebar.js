@@ -18,6 +18,7 @@ import UsersIcon from "../svg/UsersIcon";
 import CheckBoxIcon from "../svg/CheckBoxIcon/CheckBoxIcon";
 import SnoozeIcon from "../svg/SnoozeIcon/SnoozeIcon";
 import ChartIcon from "../svg/ChartIcon/ChartIcon";
+import ToolIcon from "../svg/ToolIcon";
 
 const Sidebar = ({ sidebar, status }) => {
 
@@ -825,6 +826,17 @@ const Sidebar = ({ sidebar, status }) => {
               <ReportsIcon color={false ? `#00c220` : `#111`} />
               <p className="text-[14px] font-normal text-[#132204] font-sans mt-1 ">
               Statements
+              </p>
+          </Link>
+        </li>
+        <li>
+          <Link 
+            to="/roles-permissions"
+            className="flex justify-center items-center flex-col border-b border-solid border-[#c7c7c7] py-4"
+          >
+              <ToolIcon color={false ? `#00c220` : `#111`} />
+              <p className="text-[14px] font-normal text-[#132204] font-sans mt-1 ">
+              Settings
               </p>
           </Link>
         </li>

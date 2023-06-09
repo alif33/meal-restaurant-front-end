@@ -19,6 +19,7 @@ import Banners from "./pages/restaurant/Banners";
 import Photos from "./pages/restaurant/Photos";
 import Login from "./pages/Login";
 import ForgetPassword from "./pages/ForgetPassword";
+import ResetPassword from "./pages/ResetPassword";
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
         <Route path="/cusine-types" element={<CusineTypes/>} />
         <Route path="/" element={<Login />} />
         <Route path="/forget-password" element={<ForgetPassword />} />
+        <Route path="/update-password/:token" element={<ResetPassword />} />
       </Routes>
     </BrowserRouter>
   );

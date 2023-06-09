@@ -1,14 +1,10 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
-import {  useSelector, useDispatch } from "react-redux";
-import { LogedIn } from "../store/auth/actions";
-import { postData } from "../__lib__/helpers/HttpService";
+import { updateData } from "../__lib__/helpers/HttpService";
 
 const ForgetPassword = () => {
-
-    const dispatch = useDispatch();
     const [disabled, setDisabled] = useState(false);
     const {
       register,
@@ -17,31 +13,32 @@ const ForgetPassword = () => {
       formState: { errors },
     } = useForm();
 
-    const { auth } = useSelector(state=>state);
+    const { token } = useParams();
     const navigate = useNavigate();
 
     const onSubmit = (data) => {
       setDisabled(true);
-      console.log(data);
-      postData("/forget-password", data)
-      .then((res) => {
-        if (res?.success) {
-          // const { token, admin } = res;
-          console.log(res);
-          toast.success(res?.message);
-          setDisabled(false);
-          // dispatch(
-          //   LogedIn({
-          //     token
-          //   })
-          // );
-          // reset();
-          // navigate("/dashboard");
-        }
-        if(res?.invalid){
-          toast.error(res?.message);
-        }
-      });
+
+       if(data.password === data.confirmPassword){
+            updateData("/update-password", data, token)
+            .then((res) => {
+            if (res?.success) {
+                console.log(res);
+                toast.success(res?.message);
+                setDisabled(false);
+
+                setTimeout(()=>{
+                    navigate("/");
+                }, 1000)
+            }
+            if(res?.invalid){
+                toast.error(res?.message);
+            }
+            });
+       }else {
+            toast.error("passwords didn't matched")
+       }
+
     };
 
     return (
@@ -61,44 +58,65 @@ const ForgetPassword = () => {
   
             <div className=" my-6 border  border-solid border-[#E1E1E1] relative  ">
               <label
-                htmlFor="email"
+                htmlFor="password"
                 className="text-sm absolute bg-white -top-2 left-4 "
               >
-                E-mail
+                Password
               </label>
               <input
-                type="email"
-                id="email"
-                className="bg-[#fff] w-full py-3 px-4 text-black text-base active:bg-transparent focus:bg-transparent focus-visible:bg-transparent focus-within:bg-transparent "
-                {...register("email", {
+                type="password"
+                id="password"
+                className="bg-[#fff] w-full py-3 px-4 text-black text-base focus:bg-transparent focus-visible:bg-transparent focus-within:bg-transparent "
+                {...register("password", {
                   required: {
                     value: true,
-                    message: "Enter Your Email",
-                  },
-                  pattern: {
-                    value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/,
-                    message: "Enter a valid email",
+                    message: "Enter Your Password",
                   },
                 })}
               />
             </div>
             <div>
               <label className="label">
-                {errors.email?.type === "required" && (
+                {errors.password?.type === "required" && (
                   <span className="label-text-alt text-xs text-red-600">
-                    {errors?.email?.message}
-                  </span>
-                )}
-                {errors.email?.type === "pattern" && (
-                  <span className="label-text-alt text-xs text-red-600">
-                    {errors?.email?.message}
+                    {errors?.password?.message}
                   </span>
                 )}
               </label>
             </div>
+
+            <div className=" my-6 border  border-solid border-[#E1E1E1] relative  ">
+              <label
+                htmlFor="password"
+                className="text-sm absolute bg-white -top-2 left-4 "
+              >
+                Confirm Password
+              </label>
+              <input
+                type="password"
+                id="password"
+                className="bg-[#fff] w-full py-3 px-4 text-black text-base focus:bg-transparent focus-visible:bg-transparent focus-within:bg-transparent "
+                {...register("confirmPassword", {
+                  required: {
+                    value: true,
+                    message: "Enter Your Confirm Password",
+                  },
+                })}
+              />
+            </div>
+            <div>
+              <label className="label">
+                {errors.confirmPassword?.type === "required" && (
+                  <span className="label-text-alt text-xs text-red-600">
+                    {errors?.confirmPassword?.message}
+                  </span>
+                )}
+              </label>
+            </div>
+
             <div className="flex items-center justify-center mt-10 ">
               <button className=" bg-[#00c220] border border-solid border-[#00c220] rounded-3xl flex justify-between items-center text-white text-md font-mono hover:bg-transparent transition-all duration-300 ease-in-out focus:outline-none active:outline-none  hover:text-black cursor-pointer py-2 px-12 font-semibold  ">
-                Continue
+                Update
               </button>
             </div>
             <div className="flex items-center justify-center mt-10 ">

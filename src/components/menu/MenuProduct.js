@@ -63,6 +63,7 @@ const MenuProduct = ({ productModal, setProductModal }) => {
   };
 
   const onSubmit = (data) => {
+
     authPost(
       "/menu/product",
       {
@@ -447,6 +448,9 @@ const MenuProduct = ({ productModal, setProductModal }) => {
                 </button>
               </div>
             </div>
+
+
+            
             <div className="h-auto mt-5 bg-white overflow-x-auto mb-10">
               <div className="flex justify-between items-center px-3 pt-10">
                 <div>

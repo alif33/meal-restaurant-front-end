@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-// import dynamic from "next/dynamic";
 import Layout from "../../base/Layout";
 import { HiPencil } from "react-icons/hi";
 import { useForm } from "react-hook-form";
 import { useSelector, useDispatch } from "react-redux";
 import { AiOutlineCloseCircle } from "react-icons/ai";
-// import CardWidgetWithTitle from "../../../src/components/CardWidgetWithTitle";
-// import AddUserForm from "../../../src/section/AddUserForm";
 import { authPost, postData } from "../../__lib__/helpers/HttpService";
 import {
   activeDeliveryZones,

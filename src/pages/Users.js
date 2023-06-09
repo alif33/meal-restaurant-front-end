@@ -17,25 +17,41 @@ import {
 
 const Users = () => {
   const [users, setUsers] = useState();
+  const [roles, setRoles] = useState([]);
   const [addUserForm, setAddUserForm] = useState(false);
   const [image, setImage] = useState();
   const [loading, setLoading] = useState(true)
   const [progress, setProgress] = useState(0);
   const { auth } = useSelector((state) => state);
   
-  const [isReload, setIsReload] = useState(false);
-  useEffect(() => {
-    _getData("/users", auth?.token).then((res) => {
-      setUsers(res);
-    });
-  }, [isReload]);
-
   const {
     register,
     reset,
     handleSubmit,
     formState: { errors },
   } = useForm();
+
+  const fetchRoles = ()=>{
+    _getData("/roles", auth?.token)
+    .then((res) => {
+      if(res.roles) setRoles(res.roles)
+    });
+  }
+
+  const fetchUsers = ()=>{
+    _getData("/users", auth?.token)
+    .then((res) => {
+      setUsers(res);
+    });
+  }
+
+
+  useEffect(() => {
+    fetchRoles()
+    fetchUsers()
+  }, []);
+
+
 
   const ImageHandler = (file) => {
     if (file.length>0) {
@@ -65,10 +81,9 @@ const Users = () => {
       image
     }, auth?.token)
     .then((res) => {
+      fetchUsers();
       toast.success(`${res.message}`);
       reset();
-      // setIsReload(!isReload);
-      console.log(res);
     });
   };
   return (
@@ -78,7 +93,7 @@ const Users = () => {
 
         <table className="w-full">
           <tbody>
-            {users?.map((user) => (
+            { users?.map((user) => (
               <DashboardTableListItem user={user} key={user._id} />
             ))}
           </tbody>
@@ -164,33 +179,18 @@ const Users = () => {
                 />
               </div>
               <div className="my-4">
-                <label htmlFor="name" className=" text-[#757575] capitalize  ">
+                <label htmlFor="team" className=" text-[#757575] capitalize  ">
                   Team
                 </label>
                 <select
+                  id="team"
                   type="text"
-                  id="name"
-                  placeholder="name"
-                  className="border border-solid border-[#CCCCCC] rounded-none py-2 px-3 text-[#757575] w-full mt-1 "
-                  {...register("type")}
-                >
-                  <option value="Employee">Employee</option>
-                  <option value="Employee1">Employee1</option>
-                </select>
-              </div>
-              <div className="my-4">
-                <label htmlFor="name" className=" text-[#757575] capitalize  ">
-                  Type
-                </label>
-                <select
-                  type="text"
-                  id="name"
-                  placeholder="name"
                   className="border border-solid border-[#CCCCCC] rounded-none py-2 px-3 text-[#757575] w-full mt-1 "
                   {...register("team")}
                 >
-                  <option value="Customer">Customer</option>
-                  <option value="Support">Support</option>
+                  {
+                    roles.map((role, index)=><option key={index} value={role._id}>{role.name}</option>)
+                  }
                 </select>
               </div>
               <div className="my-4">
