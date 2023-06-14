@@ -4,12 +4,12 @@ import { toNormalizeDate } from "../../__lib__/helpers/Formatter";
 const DashboardTableListItem = ({ user }) => {
   return (
     <tr className="bg-white text-center border-y-4 border-slate-100">
-      <td className="py-6 text-sm">{user?.userName}</td>
-      <td className="py-6 text-sm">{user?.name}</td>
-      <td className="py-6 text-sm">{user?.team?.name}</td>
-      <td className="py-6 text-sm">{user?.email}</td>
-      <td className="py-6 text-sm">{user?.phone}</td>
-      <td className="py-6 text-sm">{toNormalizeDate(user?.createdAt)}</td>
+      <td className="py-6 text-sm">{ user?.userName }</td>
+      <td className="py-6 text-sm">{ user?.name }</td>
+      <td className="py-6 text-sm">{ user?.team?.name }</td>
+      <td className="py-6 text-sm">{ user?.email }</td>
+      <td className="py-6 text-sm">{ user?.phone }</td>
+      <td className="py-6 text-sm">{ toNormalizeDate(user?.createdAt) }</td>
       <td className="py-6 text-sm">
         {" "}
         <button
@@ -20,7 +20,7 @@ const DashboardTableListItem = ({ user }) => {
           } `}
         >
           {/* {false ? "Active" : "DEACTIVATED"} */}
-          {user?.status}
+          { user?.status }
         </button>
       </td>
       <td className="py-6 pr-2 text-sm">

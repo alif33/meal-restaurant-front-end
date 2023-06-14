@@ -1,26 +1,31 @@
 import React, { useEffect, useState } from "react";
-import Layout from "../../base/Layout";
-import RolesPermissionsTable from "../../components/RolesPermissionsTable";
+import Layout from "../base/Layout";
+import RolesPermissionsTable from "../components/RolesPermissionsTable";
 import {
   getData,
-} from "../../__lib__/helpers/HttpService";
+} from "../__lib__/helpers/HttpService";
 
 const RestaurantPage = () => {
-  const [roles, setRoles] = useState()
+  const [roles, setRoles] = useState([])
 
   const fetchRoles = ()=>{
     getData("/roles")
     .then(res=>{
-      setRoles(res)
+      if(res.roles){
+        setRoles(res.roles)
+      }
     })
     .catch(err=>{
       console.log(err);
     })
   }
 
+
   useEffect(() => {
     fetchRoles()
   }, []);
+
+
 
   return (
     <Layout status="restaurant">

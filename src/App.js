@@ -9,7 +9,7 @@ import CusineTypes from "./pages/restaurant/CusineTypes";
 import Resturants from "./pages/restaurant";
 import Dashboard from "./pages/restaurant/Dashboard";
 import Settings from "./pages/restaurant/Settings";
-import RolesPermissions from "./pages/restaurant/RolesPermissions";
+import RolesPermissions from "./pages/RolesPermissions";
 import Statements from "./pages/restaurant/Statements";
 import Menus from "./pages/restaurant/Menus";
 import Coupons from "./pages/restaurant/Coupons";
