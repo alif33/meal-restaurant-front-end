@@ -1,11 +1,8 @@
-// import Image from "next/image";
 import React from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { useSelector, useDispatch } from "react-redux";
-// import { useSelector } from "react-redux";
-// import Location from "../../../public/img/location-svgrepo-com 1.png";
 import { activeResturant } from "../store/resturant/actions";
 import { updateData } from "../__lib__/helpers/HttpService";
 
@@ -28,12 +25,9 @@ const LocationForm = ({ locationForm, setLocationForm, children }) => {
     ).then((res) => {
       if (res.success) {
         dispatch(activeResturant(res.restaurant));
+        setLocationForm(!locationForm);
+        toast.success(`${res.message}`);
       }
-      console.log("res", res);
-      // toast.success(`${res.message}`);
-      reset();
-      setLocationForm(!locationForm);
-      console.log("locationForm", data);
     });
   };
   return (

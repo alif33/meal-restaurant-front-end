@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 // import Contact from "../../../public/img/contact-svgrepo-com 1 (1).png";
 import { activeResturant } from "../store/resturant/actions";
 import { updateData } from "../__lib__/helpers/HttpService";
+import { toast } from "react-hot-toast";
 
 const ContactForm = ({ contactForm, setContactForm, children }) => {
   const { admin, resturant } = useSelector((state) => state);
@@ -26,12 +27,10 @@ const ContactForm = ({ contactForm, setContactForm, children }) => {
     ).then((res) => {
       if (res.success) {
         dispatch(activeResturant(res.restaurant));
+        setContactForm(!contactForm);
+        toast.success(`${res.message}`);
       }
-      reset();
-      console.log("res", res);
-      setContactForm(!contactForm);
-      // toast.success(`${res.message}`);
-      console.log("ContactForm", data);
+
     });
   };
   return (

@@ -7,10 +7,10 @@ import { useSelector, useDispatch } from "react-redux";
 // import Payment from "../../../public/img/Payments.png";
 import { activeResturant } from "../store/resturant/actions";
 import { updateData } from "../__lib__/helpers/HttpService";
+import { toast } from "react-hot-toast";
 
 const PaymentsForm = ({ paymentsForm, setPaymentsForm, children }) => {
   const { admin, resturant } = useSelector((state) => state);
-  // const { activeResturant } = resturant;
   const dispatch = useDispatch();
   const { 
     register,
@@ -18,6 +18,7 @@ const PaymentsForm = ({ paymentsForm, setPaymentsForm, children }) => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  
   const onSubmit = (data) => {
     updateData(
       `/restaurant?_id=${resturant?.activeResturant?._id}`,
@@ -26,10 +27,9 @@ const PaymentsForm = ({ paymentsForm, setPaymentsForm, children }) => {
     ).then((res) => {
       if (res.success) {
         dispatch(activeResturant(res.restaurant));
+        setPaymentsForm(!paymentsForm);
+        toast.success(`${res.message}`)
       }
-      reset();
-      setPaymentsForm(!paymentsForm);
-      console.log("PaymentsForm", data);
     });
   };
   return (

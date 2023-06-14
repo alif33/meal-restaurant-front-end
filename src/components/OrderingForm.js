@@ -4,6 +4,7 @@ import { AiOutlineCloseCircle } from "react-icons/ai";
 import { useSelector, useDispatch } from "react-redux";
 import { updateData } from "../__lib__/helpers/HttpService";
 import { activeResturant } from "../store/resturant/actions";
+import { toast } from "react-hot-toast";
 
 const OrderingForm = ({ orderingForm, setOrderingForm }) => {
   const { admin, resturant } = useSelector((state) => state);
@@ -23,10 +24,9 @@ const OrderingForm = ({ orderingForm, setOrderingForm }) => {
     ).then((res) => {
       if (res.success) {
         dispatch(activeResturant(res.restaurant));
+        setOrderingForm(!orderingForm);
+        toast.success(`${res.message}`)
       }
-      reset();
-      setOrderingForm(!orderingForm);
-      console.log("OrderingForm", data);
     });
   };
   return (

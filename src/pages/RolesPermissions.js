@@ -12,7 +12,7 @@ const RestaurantPage = () => {
     getData("/roles")
     .then(res=>{
       if(res.roles){
-        setRoles(res.roles)
+        setRoles(res?.roles)
       }
     })
     .catch(err=>{
@@ -20,17 +20,14 @@ const RestaurantPage = () => {
     })
   }
 
-
   useEffect(() => {
     fetchRoles()
   }, []);
 
-
-
   return (
     <Layout status="restaurant">
       <div className="w-11/12 mx-auto mt-4">
-      <h2 className=" text-[#212121]  text-2xl font-mono mr-4 ">Settings</h2>
+      <h2 className=" text-[#212121] text-2xl font-mono mr-4">Settings</h2>
         <div className="mt-3">
           <RolesPermissionsTable
             roles={roles}

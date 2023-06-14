@@ -4,6 +4,7 @@ import { AiOutlineCloseCircle } from "react-icons/ai";
 import { useSelector, useDispatch } from "react-redux";
 import { activeResturant } from "../store/resturant/actions";
 import { updateData } from "../__lib__/helpers/HttpService";
+import { toast } from "react-hot-toast";
 const ManagerRepresentativesForm = ({
   setManagerRepresentativesForm,
   managerRepresentativesForm,
@@ -25,12 +26,10 @@ const ManagerRepresentativesForm = ({
 
       if (res.success) {
         dispatch(activeResturant(res.restaurant));
+        setManagerRepresentativesForm(!managerRepresentativesForm);
+        toast.success(`${res.message}`)
       }
-    //   console.log("resresresresresresresresresres", res);
-      // toast.success(`${res.message}`);
-      reset();
-      setManagerRepresentativesForm(!managerRepresentativesForm);
-      console.log("locationForm", data);
+
     });
   };
   return (

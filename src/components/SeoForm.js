@@ -1,12 +1,10 @@
-// import Image from "next/image";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { AiOutlineCloseCircle } from "react-icons/ai";
-// import Seo from "../../../public/img/seo-svgrepo-com 1.png";
 import { useSelector, useDispatch } from "react-redux";
 import { updateData } from "../__lib__/helpers/HttpService";
-// import { useDispatch } from "react-redux";
 import { activeResturant } from "../store/resturant/actions";
+import { toast } from "react-hot-toast";
 
 const SeoForm = ({ children, seoForm, setSeoForm }) => {
   const { admin, resturant } = useSelector((state) => state);
@@ -25,11 +23,9 @@ const SeoForm = ({ children, seoForm, setSeoForm }) => {
     ).then((res) => {
       if (res.success) {
         dispatch(activeResturant(res.restaurant));
+        setSeoForm(!seoForm);
+        toast.success(`${res.message}`);
       }
-      // toast.success(`${res.message}`);
-      reset();
-      setSeoForm(!seoForm);
-      console.log("SeoForm", data);
     });
   };
   return (

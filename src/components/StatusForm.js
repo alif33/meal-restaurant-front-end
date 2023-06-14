@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 // import Status from "../../../public/img/status-info-svgrepo-com 1.png";
 import { activeResturant } from "../store/resturant/actions";
 import { updateData } from "../__lib__/helpers/HttpService";
+import { toast } from "react-hot-toast";
 
 const StatusForm = ({ statusForm, setStatusForm, children }) => {
   const { admin, resturant } = useSelector((state) => state);
@@ -27,10 +28,10 @@ const StatusForm = ({ statusForm, setStatusForm, children }) => {
     ).then((res) => {
       if (res.success) {
         dispatch(activeResturant(res.restaurant));
+        setStatusForm(!statusForm);
+        toast.success(`${res.message}`)
       }
-      reset();
-      setStatusForm(!statusForm);
-      console.log("StatusForm", data);
+
     });
   };
   return (
