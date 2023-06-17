@@ -12,7 +12,6 @@ const OrderingForm = ({ orderingForm, setOrderingForm }) => {
   const dispatch = useDispatch();
   const {
     register,
-    reset,
     handleSubmit,
     formState: { errors },
   } = useForm();

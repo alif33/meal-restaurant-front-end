@@ -1,5 +1,3 @@
-// import parse from 'html-react-parser'
-import React from 'react'
 export const LowerCase = /(.*[a-z].*)/
 export const UpperCase = /(.*[A-Z].*)/
 export const Digit = /(.*\d.*)/

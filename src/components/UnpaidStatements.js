@@ -2,7 +2,7 @@ import React from "react";
 import CardWidgetWithTitle from "./CardWidgetWithTitle";
 import UserTablePagination from "./UserTablePagination";
 
-const UnpaidStatements = () => {
+const UnpaidStatements = ({ orders }) => {
 
   return (
     <> 
@@ -80,66 +80,18 @@ const UnpaidStatements = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr className="bg-white text-left border-y-4 border-slate-100">
+                  {
+                    orders && orders.map((orr, index)=>  <tr className="bg-white text-left border-y-4 border-slate-100">
                     <td className="py-6 text-sm">14/08/2022 - 14/09/2022</td>
                     <td className="py-6 text-sm">
-                      Punjabi Suncrise Indian Restaurants
+                      {orr.restaurant.name}
                     </td>
-                    <td className="py-6 text-sm">2</td>
-                    <td className="py-6 text-sm">0</td>
-                    <td className="py-6 text-sm">49.15 A$</td>
-                    <td className="py-6 text-sm">40.18 A$</td>
-                  </tr>
-                  <tr className="bg-white text-left border-y-4 border-slate-100">
-                    <td className="py-6 text-sm">14/08/2022 - 14/09/2022</td>
-                    <td className="py-6 text-sm">
-                      Punjabi Suncrise Indian Restaurants
-                    </td>
-                    <td className="py-6 text-sm">2</td>
-                    <td className="py-6 text-sm">0</td>
-                    <td className="py-6 text-sm">49.15 A$</td>
-                    <td className="py-6 text-sm">40.18 A$</td>
-                  </tr>
-                  <tr className="bg-white text-left border-y-4 border-slate-100">
-                    <td className="py-6 text-sm">14/08/2022 - 14/09/2022</td>
-                    <td className="py-6 text-sm">
-                      Punjabi Suncrise Indian Restaurants
-                    </td>
-                    <td className="py-6 text-sm">2</td>
-                    <td className="py-6 text-sm">0</td>
-                    <td className="py-6 text-sm">49.15 A$</td>
-                    <td className="py-6 text-sm">40.18 A$</td>
-                  </tr>
-                  <tr className="bg-white text-left border-y-4 border-slate-100">
-                    <td className="py-6 text-sm">14/08/2022 - 14/09/2022</td>
-                    <td className="py-6 text-sm">
-                      Punjabi Suncrise Indian Restaurants
-                    </td>
-                    <td className="py-6 text-sm">2</td>
-                    <td className="py-6 text-sm">0</td>
-                    <td className="py-6 text-sm">49.15 A$</td>
-                    <td className="py-6 text-sm">40.18 A$</td>
-                  </tr>
-                  <tr className="bg-white text-left border-y-4 border-slate-100">
-                    <td className="py-6 text-sm">14/08/2022 - 14/09/2022</td>
-                    <td className="py-6 text-sm">
-                      Punjabi Suncrise Indian Restaurants
-                    </td>
-                    <td className="py-6 text-sm">2</td>
-                    <td className="py-6 text-sm">0</td>
-                    <td className="py-6 text-sm">49.15 A$</td>
-                    <td className="py-6 text-sm">40.18 A$</td>
-                  </tr>
-                  <tr className="bg-white text-left border-y-4 border-slate-100">
-                    <td className="py-6 text-sm">14/08/2022 - 14/09/2022</td>
-                    <td className="py-6 text-sm">
-                      Punjabi Suncrise Indian Restaurants
-                    </td>
-                    <td className="py-6 text-sm">2</td>
-                    <td className="py-6 text-sm">0</td>
-                    <td className="py-6 text-sm">49.15 A$</td>
-                    <td className="py-6 text-sm">40.18 A$</td>
-                  </tr>
+                    <td className="py-6 text-sm">{orr.orders}</td>
+                    <td className="py-6 text-sm">{orr.ordersPaid}</td>
+                    <td className="py-6 text-sm">{orr.total}$</td>
+                    <td className="py-6 text-sm">{orr.balance}$</td>
+                  </tr>)
+                  }
                 </tbody>
               </table>
               <div className="flex justify-center items-center">

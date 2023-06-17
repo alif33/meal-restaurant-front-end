@@ -1,14 +1,16 @@
 import React from "react";
 import UserTablePagination from "./UserTablePagination";
+import { toNormalizeDate } from "../__lib__/helpers/Formatter";
 
-const PaidStatements = () => {
+const PaidStatements = ({ orders }) => {
+
   return (
     <div className="grid grid-cols-12 gap-5 mt-3">
-      <div className="col-span-9">
+      <div className="col-span-8">
         <table className="w-full">
           <thead>
             <tr>
-              <th className="text-[14px] font-light text-left text-[#6FB327]">
+              <th className="text-[14px] font-light text-left text-[#6FB327] pl-5">
                 {" "}
                 Period
               </th>
@@ -29,120 +31,37 @@ const PaidStatements = () => {
               <th className="text-[14px] font-light text-left text-[#6FB327]">
                 Balance
               </th>
-              <th className="text-[14px] font-light text-left text-[#6FB327]"></th>
+              <th className="text-[14px] font-light text-left text-[#6FB327]">Action</th>
             </tr>
           </thead>
           <tbody>
-            <tr className="bg-white text-left border-y-4 border-slate-100">
-              <td className="py-6 text-sm">14/08/2022 - 14/09/2022</td>
-              <td className="py-6 text-sm">
-                Punjabi Suncrise Indian Restaurants
-              </td>
-              <td className="py-6 text-sm">2</td>
-              <td className="py-6 text-sm">0</td>
-              <td className="py-6 text-sm">49.15 A$</td>
-              <td className="py-6 text-sm">40.18 A$</td>
-              <td className="py-6 text-sm">
-                <button
-                  className={` border border-solid text-center px-1  h-[22px] rounded-3xl text-white  font-mono hover:bg-transparent hover:text-black transition-all duration-300 ease-in-out capitalize text-xs  bg-[#6FB327] border-[#6FB327]`}
-                >
-                  Add Payment
-                </button>
-              </td>
-            </tr>
-            <tr className="bg-white text-left border-y-4 border-slate-100">
-              <td className="py-6 text-sm">14/08/2022 - 14/09/2022</td>
-              <td className="py-6 text-sm">
-                Punjabi Suncrise Indian Restaurants
-              </td>
-              <td className="py-6 text-sm">2</td>
-              <td className="py-6 text-sm">0</td>
-              <td className="py-6 text-sm">49.15 A$</td>
-              <td className="py-6 text-sm">40.18 A$</td>
-              <td className="py-6 text-sm">
-                <button
-                  className={` border border-solid text-center px-1  h-[22px] rounded-3xl text-white  font-mono hover:bg-transparent hover:text-black transition-all duration-300 ease-in-out capitalize text-xs  bg-[#6FB327] border-[#6FB327]`}
-                >
-                  Add Payment
-                </button>
-              </td>
-            </tr>
-            <tr className="bg-white text-left border-y-4 border-slate-100">
-              <td className="py-6 text-sm">14/08/2022 - 14/09/2022</td>
-              <td className="py-6 text-sm">
-                Punjabi Suncrise Indian Restaurants
-              </td>
-              <td className="py-6 text-sm">2</td>
-              <td className="py-6 text-sm">0</td>
-              <td className="py-6 text-sm">49.15 A$</td>
-              <td className="py-6 text-sm">40.18 A$</td>
-              <td className="py-6 text-sm">
-                <button
-                  className={` border border-solid text-center px-1  h-[22px] rounded-3xl text-white  font-mono hover:bg-transparent hover:text-black transition-all duration-300 ease-in-out capitalize text-xs  bg-[#6FB327] border-[#6FB327]`}
-                >
-                  Add Payment
-                </button>
-              </td>
-            </tr>
-            <tr className="bg-white text-left border-y-4 border-slate-100">
-              <td className="py-6 text-sm">14/08/2022 - 14/09/2022</td>
-              <td className="py-6 text-sm">
-                Punjabi Suncrise Indian Restaurants
-              </td>
-              <td className="py-6 text-sm">2</td>
-              <td className="py-6 text-sm">0</td>
-              <td className="py-6 text-sm">49.15 A$</td>
-              <td className="py-6 text-sm">40.18 A$</td>
-              <td className="py-6 text-sm">
-                <button
-                  className={` border border-solid text-center px-1  h-[22px] rounded-3xl text-white  font-mono hover:bg-transparent hover:text-black transition-all duration-300 ease-in-out capitalize text-xs  bg-[#6FB327] border-[#6FB327]`}
-                >
-                  Add Payment
-                </button>
-              </td>
-            </tr>
-            <tr className="bg-white text-left border-y-4 border-slate-100">
-              <td className="py-6 text-sm">14/08/2022 - 14/09/2022</td>
-              <td className="py-6 text-sm">
-                Punjabi Suncrise Indian Restaurants
-              </td>
-              <td className="py-6 text-sm">2</td>
-              <td className="py-6 text-sm">0</td>
-              <td className="py-6 text-sm">49.15 A$</td>
-              <td className="py-6 text-sm">40.18 A$</td>
-              <td className="py-6 text-sm">
-                <button
-                  className={` border border-solid text-center px-1  h-[22px] rounded-3xl text-white  font-mono hover:bg-transparent hover:text-black transition-all duration-300 ease-in-out capitalize text-xs  bg-[#6FB327] border-[#6FB327]`}
-                >
-                  Add Payment
-                </button>
-              </td>
-            </tr>
-            <tr className="bg-white text-left border-y-4 border-slate-100">
-              <td className="py-6 text-sm">14/08/2022 - 14/09/2022</td>
-              <td className="py-6 text-sm">
-                Punjabi Suncrise Indian Restaurants
-              </td>
-              <td className="py-6 text-sm">2</td>
-              <td className="py-6 text-sm">0</td>
-              <td className="py-6 text-sm">49.15 A$</td>
-              <td className="py-6 text-sm">40.18 A$</td>
-              <td className="py-6 text-sm">
-                <button
-                  className={` border border-solid text-center px-1  h-[22px] rounded-3xl text-white  font-mono hover:bg-transparent hover:text-black transition-all duration-300 ease-in-out capitalize text-xs  bg-[#6FB327] border-[#6FB327]`}
-                >
-                  Add Payment
-                </button>
-              </td>
-            </tr>
+            {
+              orders && orders.map((orr, index)=> <tr key={index} className="bg-white text-left border-y-4 border-slate-100">
+              <td className="py-6 text-sm pl-5">{toNormalizeDate(orr.createdAt)}</td>
+                <td className="py-6 text-sm">
+                  {orr?.restaurant?.name}
+                </td>
+                <td className="py-6 text-sm">{orr.orders}</td>
+                <td className="py-6 text-sm">{orr.ordersPaid}</td>
+                <td className="py-6 text-sm">{orr.total}$</td>
+                <td className="py-6 text-sm">{orr.balance}$</td>
+                <td className="py-6 text-sm">
+                  <button
+                    className={` border border-solid text-center px-1  h-[22px] rounded-3xl text-white  font-mono hover:bg-transparent hover:text-black transition-all duration-300 ease-in-out capitalize text-xs  bg-[#6FB327] border-[#6FB327]`}
+                  >
+                    Add Payment
+                  </button>
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
         <div className="flex justify-center items-center">
           <UserTablePagination />
         </div>
       </div>
-      <div className="col-span-3">
-        <div className="w-[300px] h-[841px] shadow-xl bg-white  px-4">
+      <div className="col-span-4">
+        <div className="w-[370px] h-[841px] shadow-xl bg-white px-4">
           <p className="text-[#6FB327] text-sm font-medium py-2">
             Quick Filters
           </p>
@@ -153,7 +72,7 @@ const PaidStatements = () => {
                 From Date:
               </label>
               <input
-                className="w-[130px] h-[40px] border-[#CCCCCC] border-[2px]"
+                className="w-[160px] h-[40px] border-[#CCCCCC] border-[2px]"
                 type="date"
               />
             </div>
@@ -162,7 +81,7 @@ const PaidStatements = () => {
                 To Date:
               </label>
               <input
-                className="w-[130px] h-[40px] border-[#CCCCCC] border-[2px]"
+                className="w-[160px] h-[40px] border-[#CCCCCC] border-[2px]"
                 type="date"
               />
             </div>

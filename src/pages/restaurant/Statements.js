@@ -1,15 +1,34 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Layout from "../../base/Layout";
 import AddPaymentForm from "../../components/AddPaymentForm";
 import PaidStatements from "../../components/PaidStatements";
 import UnpaidStatements from "../../components/UnpaidStatements";
+import { _getData, getData } from "../../__lib__/helpers/HttpService";
 
 const Statements = () => {
 
+  const [orders, setOrders] = useState();
+  const [paids, setPaids] = useState();
+  const [unPaids, setUnPaids] = useState();
   const [addPaymentForm, setAddPaymentForm] = useState(false);
   const [tapList, setTapList] = useState(true);
-  const { admin, resturant } = useSelector((state) => state);
+  const { auth, resturant } = useSelector((state) => state);
+
+
+  const fetchOrders = ()=>{
+    _getData("/orders", auth.token)
+    .then(res=>{
+      if(res.orders){
+        setPaids(res.orders.filter(orr => orr.status === "PAID"))
+        setUnPaids(res.orders.filter(orr => orr.status === "UNPAID"))
+      }
+    })
+  }
+
+  useEffect(()=>{
+    fetchOrders()
+  },[])
 
   return (
 
@@ -59,8 +78,12 @@ const Statements = () => {
           </li>
         </ul>
 
-        {tapList && <UnpaidStatements />}
-        {!tapList && <PaidStatements />}
+        {tapList && <UnpaidStatements 
+          orders={unPaids}
+        />}
+        {!tapList && <PaidStatements 
+          orders={paids}
+        />}
         {addPaymentForm && (
           <AddPaymentForm
             addPaymentForm={addPaymentForm}

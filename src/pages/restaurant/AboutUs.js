@@ -47,7 +47,7 @@ const AboutUs = () => {
     });
   };
   return (
-    <Layout status="restaurant">
+    <Layout ___resturant__={true} status="restaurant">
       <div className="w-11/12 mx-auto mt-4">
         <div className="border-b-2 pb-[48px]">
           <h1 className="text-[26px] font-light">

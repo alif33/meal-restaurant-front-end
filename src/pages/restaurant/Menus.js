@@ -33,7 +33,9 @@ const ReatauarantMenuPage = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(setCategories(resturant.activeResturant?._id));
+    if(resturant.activeResturant?._id){
+      dispatch(setCategories(resturant.activeResturant?._id));
+    }
   }, []);
 
   const onError = () => {};
@@ -84,7 +86,7 @@ const ReatauarantMenuPage = () => {
   };
 
   return (
-    <Layout status="restaurant">
+    <Layout ___resturant__={true} status="restaurant">
       {productModal ? (
         <MenuProduct productModal={productModal} setProductModal={setProductModal} />
       ) : (
