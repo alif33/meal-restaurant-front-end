@@ -2,14 +2,15 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast, { Toaster } from "react-hot-toast";
 import {  useSelector, useDispatch } from "react-redux";
+import Spinner from "../components/common/Spinner";
 import { Link, useNavigate } from "react-router-dom";
 import { LogedIn } from "../store/auth/actions";
 import { postData } from "../__lib__/helpers/HttpService";
 
 const Login = () => {
-
+    const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
-    const [disabled, setDisabled] = useState(false);
+
     const {
       register,
       reset,
@@ -20,18 +21,21 @@ const Login = () => {
     const { auth } = useSelector(state=>state);
     const navigate = useNavigate();
 
+
+    const onError = (err) => console.log(err)
+
     const onSubmit = (data) => {
-      setDisabled(true);
-      console.log(data);
+      setLoading(true);
       postData("/signin", data)
       .then((res) => {
+        setLoading(false);
         if (res?.success) {
-          const { token, admin } = res;
-          console.log(res);
+          const { token, user } = res;
           toast.success(res?.message);
-          setDisabled(false);
+
           dispatch(
             LogedIn({
+              user,
               token
             })
           );
@@ -41,8 +45,14 @@ const Login = () => {
         if(res?.invalid){
           toast.error(res?.message);
         }
-      });
+      })
+      .catch(err=>{
+        console.log(err);
+        setLoading(false);
+      })
     };
+
+    console.log(loading, "Loading");
 
     return (
       <div>
@@ -53,7 +63,7 @@ const Login = () => {
   
         <div className=" w-6/12 mx-auto bg-white shadow-[0_0_20px_3px_#c3c3c3] py-12 px-5 absolute top-[50%] left-[50%] translate-y-[-50%] translate-x-[-50%] ">
           <form 
-            onSubmit={handleSubmit(onSubmit)} 
+            onSubmit={handleSubmit(onSubmit, onError)}
             className="w-2/3 mx-auto">
             <h4 className=" text-[#717171] text-2xl mb-10 font-mono font-semibold ">
               MealNow Admin
@@ -130,8 +140,10 @@ const Login = () => {
                   Forget password?
                 </Link>
               </p>
-              <button className=" bg-[#00c220] border border-solid border-[#00c220] rounded-3xl flex justify-between items-center text-white text-md font-mono hover:bg-transparent transition-all duration-300 ease-in-out focus:outline-none active:outline-none  hover:text-black cursor-pointer py-2 px-12 font-semibold  ">
-                LOGIN
+              <button type="submit" disabled={loading} className=" bg-[#00c220] border border-solid border-[#00c220] rounded-3xl flex justify-between items-center text-white text-md font-mono hover:bg-transparent transition-all duration-300 ease-in-out focus:outline-none active:outline-none  hover:text-black cursor-pointer py-2 px-12 font-semibold">
+                {
+                  loading? <Spinner/> :"LOGIN"
+                }
               </button>
             </div>
           </form>

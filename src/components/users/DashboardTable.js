@@ -1,14 +1,14 @@
 import React from "react";
 import DashbardSearchBar from "./DashbardSearchBar";
 
-const DashboardTable = ({ setAddUserForm }) => {
+const DashboardTable = ({ handleOrder, handleSerch, setAddUserForm }) => {
   return (
     <>
-      <DashbardSearchBar setAddUserForm={setAddUserForm} />
-      <ul className="mt-3">
-        {/* <DashboardTableListItem />
-        <DashboardTableListItem /> */}
-      </ul>
+      <DashbardSearchBar 
+        handleOrder={handleOrder} 
+        handleSerch={handleSerch} 
+        setAddUserForm={setAddUserForm} 
+      />
     </>
   );
 };

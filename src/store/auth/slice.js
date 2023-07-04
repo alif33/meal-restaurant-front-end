@@ -5,13 +5,15 @@ export const authSlice = createSlice({
   initialState: {
     token: "",
     isAuthenticated: false,
+    user: null
   },
   reducers: {
     LogedIn: (state, action) => {
       return {
         ...state,
         isAuthenticated: true,
-        token: action.payload.token
+        token: action.payload.token,
+        user: action.payload.user
       };
     },
 

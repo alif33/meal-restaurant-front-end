@@ -1,29 +1,47 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { AiOutlineCloseCircle } from "react-icons/ai";
+import ReactPaginate from 'react-paginate';
 import { useSelector } from "react-redux";
 import Layout from "../base/Layout";
-import ClipLoader from "react-spinners/ClipLoader";
+import SyncLoader from "react-spinners/SyncLoader";
 import DashboardTableListItem from "../components/users/DashboardTableListItem";
-import UserTablePagination from "../components/users/UserTablePagination";
 import AddUserForm from "../components/users/AddUserForm";
 import DashboardTable from "../components/users/DashboardTable";
+import { override, userFields } from "../__lib__/config";
 import {
   authPost,
   postData,
   _getData,
 } from "../__lib__/helpers/HttpService";
+import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 
 const Users = () => {
   const [users, setUsers] = useState();
+  const [coreUsers, setCoreUsers] = useState();
+  const [userOffset, setUserOffset] = useState(0);
+  const [searchKeyword, setSearchKeyword] = useState();
   const [roles, setRoles] = useState([]);
   const [addUserForm, setAddUserForm] = useState(false);
   const [image, setImage] = useState();
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(false);
+  const [fetching, setFetching] = useState(true);
   const [progress, setProgress] = useState(0);
   const { auth } = useSelector((state) => state);
   
+  //pagination 
+  const usersPerPage = 4; 
+
+  const endOffset = userOffset + usersPerPage;
+  const currentUsers = users? users?.slice(userOffset, endOffset): null;
+  const pageCount = users? Math.ceil(users.length / usersPerPage): null;
+
+  const handlePageClick = (event) => {
+    const newOffset = (event.selected * usersPerPage) % users?.length;
+    setUserOffset(newOffset);
+  };
+
   const {
     register,
     reset,
@@ -42,9 +60,10 @@ const Users = () => {
     _getData("/users", auth?.token)
     .then((res) => {
       setUsers(res);
+      setCoreUsers(res);
+      setFetching(false);
     });
   }
-
 
   useEffect(() => {
     fetchRoles()
@@ -52,6 +71,34 @@ const Users = () => {
   }, []);
 
 
+  const handleOrder = field =>{
+    const sortedArray = [...coreUsers];
+
+    sortedArray.sort((a, b) => {
+      const valueA = a[field];
+      const valueB = b[field];
+
+      if (valueA < valueB) return -1;
+      if (valueA > valueB) return 1;
+      return 0;
+    });
+
+    setUsers(sortedArray);
+  }
+
+  const handleSerch =(input, keyword) =>{
+    if(input){
+      setSearchKeyword(keyword)
+
+    }else{
+      const filteredUsers = coreUsers.filter((item) => {
+        const name = item.name.toString().toLowerCase();
+        return name.includes(searchKeyword.toString().toLowerCase());
+      });
+    
+      setUsers(filteredUsers);
+    }
+  }  
 
   const ImageHandler = (file) => {
     if (file.length>0) {
@@ -72,35 +119,86 @@ const Users = () => {
   };
 
 
-  const onError = (err) => console.log(err);
+  const onError = (err) =>{
+    let hadShown = false;
+
+    userFields.map(name=>{
+      if(!hadShown && err?.[`${name}`]){
+        const msg = err?.[`${name}`].message;
+        toast.error(`${msg}`);
+        hadShown = true
+      }
+    })
+  } 
 
   const onSubmit = (data) => {
-
+    setLoading(true);
     authPost("/user/register", { 
       ...data,
       image
     }, auth?.token)
     .then((res) => {
+      setLoading(false);
       fetchUsers();
       toast.success(`${res.message}`);
       reset();
-    });
+      setAddUserForm(!addUserForm);
+    })
+    .catch(err=>{
+      setLoading(false);
+      console.log(err)
+    })
   };
   return (
     <Layout status="user">
-      <div className="w-11/12 mx-auto mt-4">
-        <DashboardTable setAddUserForm={setAddUserForm} />
+      {
+        fetching? <SyncLoader cssOverride={override} loading={fetching} color="#36d7b7" /> : <>
+          <div className="w-11/12 mx-auto my-6">
+        <DashboardTable handleOrder={handleOrder} handleSerch={handleSerch} setAddUserForm={setAddUserForm} />
 
         <table className="w-full">
+          <thead className="my-4">
+            <tr>
+              <th scope="col">User name</th>
+              <th scope="col">Name</th>
+              <th scope="col">Role</th>
+              <th scope="col">Email</th>
+              <th scope="col">Phone</th>
+              <th scope="col">Created</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
           <tbody>
-            { users?.map((user) => (
+            { currentUsers?.map((user) => (
               <DashboardTableListItem user={user} key={user._id} />
             ))}
           </tbody>
         </table>
 
         <div className="flex justify-center items-center">
-          <UserTablePagination />
+          <ReactPaginate
+            breakLabel="..."
+            nextLabel={<button className="w-8 h-8 text-3xl flex justify-center items-center bg-[#6FB327] border border-solid border-[#6FB327] text-white rounded-full">
+              <MdKeyboardArrowRight/>
+            </button>}
+            onPageChange={handlePageClick}
+            pageRangeDisplayed={5}
+            pageCount={pageCount}
+            previousLabel={
+              <button className="w-8 h-8 text-3xl flex justify-center items-center bg-[#6FB327] border border-solid border-[#6FB327] text-white rounded-full">
+              <MdKeyboardArrowLeft />
+            </button>
+            }
+            renderOnZeroPageCount={null}
+            containerClassName="flex justify-between items-center mt-5"
+            pageClassName="border border-solid text-[#858585] rounded-full mx-1"
+            previousClassName="mr-2"
+            nextClassName="ml-2"
+            pageLinkClassName="w-8 h-8 text-md flex justify-center items-center bg-transparent border border-solid  text-[#858585] rounded-full"
+            activeClassName="border-[#00c220]"
+            disabledClassName="opacity-50 cursor-not-allowed"
+            // forcePage={currentPage}
+          />
         </div>
       </div>
       {addUserForm && (
@@ -124,12 +222,11 @@ const Users = () => {
                   username
                 </label>
                 <input
-                  type="text"
                   id="username"
-                  placeholder="username"
+                  type="text"
                   className="border border-solid border-[#CCCCCC] rounded-none py-2 px-3 text-[#757575] w-full mt-1 "
                   {...register("userName", {
-                    // required: "username is required.",
+                    required: "Username required",
                   })}
                 />
               </div>
@@ -141,12 +238,11 @@ const Users = () => {
                   password
                 </label>
                 <input
-                  type="password"
                   id="password"
-                  placeholder="password"
+                  type="password"
                   className="border border-solid border-[#CCCCCC] rounded-none py-2 px-3 text-[#757575] w-full mt-1 "
                   {...register("password", {
-                    // required: "password is required.",
+                    required: "Password required.",
                   })}
                 />
               </div>
@@ -155,26 +251,24 @@ const Users = () => {
                   Email
                 </label>
                 <input
-                  type="email"
                   id="email"
-                  placeholder="naomi.parking@gmail.com"
+                  type="email"
                   className="border border-solid border-[#CCCCCC] rounded-none py-2 px-3 text-[#757575] w-full mt-1 "
                   {...register("email", {
-                    // required: "email is required.",
+                    required: "Email required",
                   })}
                 />
               </div>
               <div className="my-4">
-                <label htmlFor="name" className=" text-[#757575] capitalize  ">
+                <label htmlFor="firstName" className=" text-[#757575] capitalize  ">
                   First Name / Last Name
                 </label>
                 <input
+                  id="firstName"
                   type="text"
-                  id="name"
-                  placeholder="name"
                   className="border border-solid border-[#CCCCCC] rounded-none py-2 px-3 text-[#757575] w-full mt-1 "
                   {...register("name", {
-                    // required: "email is required.",
+                    required: "Name required",
                   })}
                 />
               </div>
@@ -195,18 +289,17 @@ const Users = () => {
               </div>
               <div className="my-4">
                 <label
-                  htmlFor="number"
+                  htmlFor="telNumber"
                   className=" text-[#757575] capitalize  "
                 >
                   Mobile phone
                 </label>
                 <input
+                  id="telNumber"
                   type="tel"
-                  id="name"
-                  placeholder="078 635 89 65"
                   className="border border-solid border-[#CCCCCC] rounded-none py-2 px-3 text-[#757575] w-full mt-1 "
                   {...register("phone", {
-                    // required: "email is required.",
+                    required: "Phone number required",
                   })}
                 />
               </div>
@@ -248,19 +341,26 @@ const Users = () => {
 
             <div className="flex items-center mt-6 justify-between w-2/3 mx-auto">
               <button
+                type="button"
                 className={` border border-solid  rounded-3xl flex justify-center items-center hover:text-white py-3 px-4  font-mono bg-transparent text-black transition-all duration-300 ease-in-out capitalize text-xs hover:bg-[#00c220] border-[#00c220] w-auto`}
+                onClick={()=>setAddUserForm(!addUserForm)}
               >
                 Cancel
               </button>
               <button
-                className={` border border-solid  rounded-3xl flex justify-center items-center text-white py-3 px-4  font-mono hover:bg-transparent hover:text-black transition-all duration-300 ease-in-out capitalize text-xs auto bg-[#00c220] border-[#00c220]`}
+                type="submit"
+                disabled={loading}
+                className={`${loading && "pointer-events-none bg-gray-300 text-gray-500 hover:bg-gray-300 hover:text-gray-500"} bg-[#00c220] border border-solid border-[#00c220] rounded-3xl flex justify-center items-center text-white py-3 px-4  font-mono hover:bg-transparent hover:text-black transition-all duration-300 ease-in-out capitalize text-xs auto`}
               >
-                Save Changes
+               Save Changes
               </button>
             </div>
           </form>
         </AddUserForm>
       )}
+        </>
+      }
+      
     </Layout>
   );
 };
