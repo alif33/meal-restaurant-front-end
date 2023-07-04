@@ -3,8 +3,8 @@ import { useSelector } from "react-redux";
 
 const MobileImgPre = ({ setMobileImgPre, mobileImgPre }) => {
 
-  const { admin, resturant } = useSelector((state) => state);
-  const { activeResturant } = resturant;
+  const { admin, restaurant } = useSelector((state) => state);
+  const { activeRestaurant } = restaurant;
   
   return (
     <>
@@ -15,7 +15,7 @@ const MobileImgPre = ({ setMobileImgPre, mobileImgPre }) => {
       <div className="fixed top-[15%] right-[30%] w-[40%] h-[60%] bg-[#fff] py-8 px-7  overflow-y-auto  ">
         <img
           className="w-full h-full"
-          src={resturant?.activeResturant?.mobileHeaderImage}
+          src={restaurant?.activeRestaurant?.mobileHeaderImage}
           alt=""
         />
       </div>

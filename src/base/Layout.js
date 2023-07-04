@@ -5,11 +5,11 @@ import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
 import { Toaster } from "react-hot-toast";
 
-const Layout = ({ children, status, ___resturant__ }) => {
+const Layout = ({ children, status, ___restaurant__ }) => {
   const [sidebar, setSidebar] = useState(false);
-  const { resturant } = useSelector((state) => state);
+  const { restaurant } = useSelector((state) => state);
 
-  if(___resturant__ && !resturant?.activeResturant){
+  if(___restaurant__ && !restaurant?.activeRestaurant){
     return(
       <div className="h-screen">
         <Toaster position="top-center" reverseOrder={false} />

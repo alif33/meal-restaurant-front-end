@@ -2,14 +2,14 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { useSelector, useDispatch } from "react-redux";
-import { activeResturant } from "../store/resturant/actions";
+import { activeRestaurant } from "../store/restaurant/actions";
 import { updateData } from "../__lib__/helpers/HttpService";
 import { toast } from "react-hot-toast";
 const ManagerRepresentativesForm = ({
   setManagerRepresentativesForm,
   managerRepresentativesForm,
 }) => {
-  const { admin, resturant } = useSelector((state) => state);
+  const { admin, restaurant } = useSelector((state) => state);
   const {
     register,
     reset,
@@ -19,13 +19,13 @@ const ManagerRepresentativesForm = ({
   const dispatch = useDispatch();
   const onSubmit = (data) => {
     updateData(
-      `/restaurant?_id=${ resturant?.activeResturant?._id }`,
+      `/restaurant?_id=${ restaurant?.activeRestaurant?._id }`,
       data,
       admin?.token
     ).then((res) => {
 
       if (res.success) {
-        dispatch(activeResturant(res.restaurant));
+        dispatch(activeRestaurant(res.restaurant));
         setManagerRepresentativesForm(!managerRepresentativesForm);
         toast.success(`${res.message}`)
       }
@@ -68,7 +68,7 @@ const ManagerRepresentativesForm = ({
                 errors.accountManager ? "border-red-600  " : ""
               }`}
               type="text"
-              defaultValue={resturant?.activeResturant?.accountManager}
+              defaultValue={restaurant?.activeRestaurant?.accountManager}
               placeholder=""
               {...register("accountManager", {
                 required: "Account Manager Name is required.",
@@ -91,7 +91,7 @@ const ManagerRepresentativesForm = ({
                 errors.salesRep ? "border-red-600" : ""
               }`}
               type="text"
-              defaultValue={resturant?.activeResturant?.salesRep}
+              defaultValue={restaurant?.activeRestaurant?.salesRep}
               placeholder=""
               {...register("salesRep", {
                 required: " Sales Rep. is required.",
@@ -114,7 +114,7 @@ const ManagerRepresentativesForm = ({
                 errors?.menuRep ? "border-red-600" : ""
               }`}
               type="text"
-              defaultValue={resturant?.activeResturant?.menuRep}
+              defaultValue={restaurant?.activeRestaurant?.menuRep}
               placeholder=""
               {...register("menuRep", {
                 required: "Menu Rep. Name is required.",

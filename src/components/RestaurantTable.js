@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { activeResturant } from "../store/resturant/actions";
+import { activeRestaurant } from "../store/restaurant/actions";
 import EyeIcon from "../svg/EyeIcon";
 import IIcon from "../svg/IIcon";
 import SupportIcon2 from "../svg/SupportIcon2";
@@ -9,18 +9,17 @@ import SupportIcon3 from "../svg/SupportIcon3";
 
 const RestaurantTable = ({ addUserForm, setAddUserForm }) => {
   const [show, setShow] = useState(null);
-  const { resturant } = useSelector((state) => state);
+  const { restaurant } = useSelector((state) => state);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleActive = (_resturant) => {
-    dispatch(activeResturant(_resturant));
+    dispatch(activeRestaurant(_resturant));
     navigate("/dashboard");
     // Router.push("/restaurant/dashboard");
     console.log("restaurants", _resturant);
   };
 
-  console.log(resturant);
   return (
     <div>
       <table className="w-full whitespace-nowrap text-center">
@@ -39,24 +38,24 @@ const RestaurantTable = ({ addUserForm, setAddUserForm }) => {
           </tr>
         </thead>
 
-        {resturant &&
-          resturant.restaurantList &&
-          Array.isArray(resturant.restaurantList) &&
-          resturant.restaurantList.map((_resturant, index) => (
+        {restaurant &&
+          restaurant.restaurantList &&
+          Array.isArray(restaurant.restaurantList) &&
+          restaurant.restaurantList.map((_resturant, index) => (
             <tbody key={_resturant._id}>
               <tr className="h-16 bg-white ">
                 <td className="pl-2 text-[#212121] font-mono font-normal text-sm ">
-                  {resturant.restaurantList?.length - index}
+                  {restaurant.restaurantList?.length - index}
                 </td>
                 <td>
                   <p
                     className={`text-[#212121] font-mono font-normal text-sm cursor-pointer ${
-                      resturant?.activeResturant?._id === _resturant._id
+                      restaurant?.activeRestaurant?._id === _resturant._id
                         ? "underline"
                         : " "
                     }`}
                     onClick={() => handleActive(_resturant)}
-                    _active={resturant?.activeResturant?._id === _resturant._id}
+                    _active={restaurant?.activeRestaurant?._id === _resturant._id}
                   >
                     {_resturant.name}
                   </p>

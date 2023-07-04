@@ -8,7 +8,7 @@ import AddUserForm from "../../components/AddUserForm";
 import CardWidgetWithTitle from "../../components/CardWidgetWithTitle";
 import DeleteIcon from "../../svg/DeleteIcon";
 import LiveShopIcon2 from "../../svg/LiveShopIcon2";
-import { setBanners } from "../../store/resturant/actions";
+import { setBanners } from "../../store/restaurant/actions";
 import { 
     authPost, 
     deleteData, 
@@ -25,12 +25,12 @@ const RestaurantBanners = () => {
 
   const [addUserForm, setAddUserForm] = useState(false);
   const [image, setImage] = useState();
-  const { resturant, auth } = useSelector(state=>state);
+  const { restaurant, auth } = useSelector(state=>state);
   const dispatch = useDispatch();
 
   useEffect(()=>{
     dispatch(setBanners(
-      resturant?.activeResturant?._id,
+      restaurant?.activeRestaurant?._id,
       auth.token
     ))
   }, [])
@@ -59,7 +59,7 @@ const RestaurantBanners = () => {
       .then(res=>{
         if(res.success){
           dispatch(setBanners(
-            resturant?.activeResturant?._id,
+            restaurant?.activeRestaurant?._id,
             auth.token
           ));
           toast.success(`${res.message}`);
@@ -70,7 +70,7 @@ const RestaurantBanners = () => {
   const onError = (err) => console.log(err);
 
   const onSubmit = (data) => {
-      authPost(`/restaurant/photo?resturant=${ resturant?.activeResturant?._id }&type=BANNER`,
+      authPost(`/restaurant/photo?resturant=${ restaurant?.activeRestaurant?._id }&type=BANNER`,
       {
         uri: image,
         status: "ACTIVE"
@@ -79,7 +79,7 @@ const RestaurantBanners = () => {
     ).then(res=>{
       if(res.success){
         dispatch(setBanners(
-          resturant?.activeResturant?._id,
+          restaurant?.activeRestaurant?._id,
           auth.token
         ));
         toast.success(`${res.message}`);
@@ -91,7 +91,7 @@ const RestaurantBanners = () => {
       <div className="w-11/12 mx-auto mt-4">
         <div className="flex justify-between items-center ">
           <h1 className=" text-[#212121] text-[26px] font-mono ">
-            Banners - { resturant?.activeResturant?.name }
+            Banners - { restaurant?.activeRestaurant?.name }
           </h1>
           <div className="">
             <button
@@ -104,9 +104,9 @@ const RestaurantBanners = () => {
         </div>
         <>  
           {
-            resturant?.banners &&
-              Array.isArray(resturant.banners) &&
-                resturant.banners.map((banner, index)=>(
+            restaurant?.banners &&
+              Array.isArray(restaurant.banners) &&
+                restaurant.banners.map((banner, index)=>(
                   <div key={ index } className="w-2/3">
                     <CardWidgetWithTitle>
                       <div className="grid grid-cols-[80%_15%] gap-[4%] ">

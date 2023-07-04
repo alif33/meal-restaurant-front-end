@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { MdDeleteOutline } from "react-icons/md";
 import { useSelector, useDispatch } from "react-redux";
-import { setSchedules } from "../../store/resturant/actions";
+import { setSchedules } from "../../store/restaurant/actions";
 import { authPost, updateData } from "../../__lib__/helpers/HttpService";
 import { days } from "../../__lib__/config";
 
@@ -12,7 +12,7 @@ const PickupFrom = ({ pickupFrom, setPickupFrom }) => {
   const [startPeriod, setStartPeriod] = useState();
   const [endPeriod, setEndPeriod] = useState();
   const [tempSche, setTempSche] = useState([]);
-  const { admin, resturant } = useSelector((state) => state);
+  const { admin, restaurant } = useSelector((state) => state);
 
   const dispatch = useDispatch();
 
@@ -23,7 +23,7 @@ const PickupFrom = ({ pickupFrom, setPickupFrom }) => {
         genre: "Pickup",
         startPeriod,
         endPeriod,
-        restaurant: resturant?.activeResturant?._id        
+        restaurant: restaurant?.activeRestaurant?._id        
       }
 
       setTempSche(
@@ -42,7 +42,7 @@ const PickupFrom = ({ pickupFrom, setPickupFrom }) => {
     .then(res=>{
       if(res.success){
         setTempSche([])
-        dispatch(setSchedules(resturant?.activeResturant?._id))
+        dispatch(setSchedules(restaurant?.activeRestaurant?._id))
       }
     })
     .catch(err=>{
@@ -74,9 +74,9 @@ const PickupFrom = ({ pickupFrom, setPickupFrom }) => {
             <p className="text-xs text-[#757575] ">End Time</p>
           </li>
           {
-            resturant?.sehedules && 
-            Array.isArray(resturant?.sehedules) &&
-            resturant.sehedules.map((sche, index)=>{
+            restaurant?.sehedules && 
+            Array.isArray(restaurant?.sehedules) &&
+            restaurant.sehedules.map((sche, index)=>{
               if (sche.genre==="Pickup") {
                 return(
                   <li key={index} className="grid grid-cols-[20%_24%_5%_24%_5%] gap-[4%] items-center mt-4">

@@ -1,6 +1,6 @@
 import { getData, _getData } from "../../__lib__/helpers/HttpService";
-import { resturantSlice } from "./slice";
-const { actions: slice } = resturantSlice;
+import { restaurantSlice } from "./slice";
+const { actions: slice } = restaurantSlice;
 
 export const setRestaurant = (token) => (dispatch) => {
   _getData("/restaurants", token).then((res) => {
@@ -10,8 +10,8 @@ export const setRestaurant = (token) => (dispatch) => {
   });
 };
 
-export const activeResturant = (resturant) => (dispatch) => {
-  dispatch(slice.activeResturant(resturant));
+export const activeRestaurant = (restaurant) => (dispatch) => {
+  dispatch(slice.activeRestaurant(restaurant));
 };
 
 export const setSchedules = (_id, token) => (dispatch) => {

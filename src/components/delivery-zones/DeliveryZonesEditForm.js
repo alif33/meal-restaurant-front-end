@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { useSelector, useDispatch } from "react-redux";
-import { setDeliveryZones } from "../../store/resturant/actions";
+import { setDeliveryZones } from "../../store/restaurant/actions";
 import { updateData } from "../../__lib__/helpers/HttpService";
 import EditAddedMap from "../../components/delivery-zones/EditAddedMap";
 
@@ -18,7 +18,7 @@ const DeliveryZonesEditForm = ({
 }) => {
 
   const dispatch = useDispatch();
-  const { admin, resturant } = useSelector((state) => state);
+  const { admin, restaurant } = useSelector((state) => state);
   const {
     _id,
     name,
@@ -29,7 +29,7 @@ const DeliveryZonesEditForm = ({
     minimumOrder,
     latitude,
     longitude,
-  } = resturant?.deliveryZones[deliveryZonesEditFormNumber];
+  } = restaurant?.deliveryZones[deliveryZonesEditFormNumber];
   const {
     register,
     reset,
@@ -44,7 +44,7 @@ const DeliveryZonesEditForm = ({
     ).then((res) => {
       if (res.success) {
         dispatch(
-          setDeliveryZones(resturant?.activeResturant?._id, admin?.token)
+          setDeliveryZones(restaurant?.activeRestaurant?._id, admin?.token)
         );
       }
       toast.success(`${res.message}`);

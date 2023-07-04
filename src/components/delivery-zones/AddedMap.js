@@ -103,7 +103,7 @@ function LocationMarker({ lat, lng }) {
 }
 
 export default function AddedMap({ lat, lng, setLat, setLng }) {
-  const { resturant } = useSelector((state) => state);
+  const { restaurant } = useSelector((state) => state);
 
   return (
     <MapContainer center={[lat, lng]} zoom={13} scrollWheelZoom={false}>

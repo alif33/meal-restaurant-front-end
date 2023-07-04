@@ -13,7 +13,7 @@ const Statements = () => {
   const [unPaids, setUnPaids] = useState();
   const [addPaymentForm, setAddPaymentForm] = useState(false);
   const [tapList, setTapList] = useState(true);
-  const { auth, resturant } = useSelector((state) => state);
+  const { auth, restaurant } = useSelector((state) => state);
 
 
   const fetchOrders = ()=>{
@@ -36,7 +36,7 @@ const Statements = () => {
       <div className="w-[98%] mx-auto mt-4">
         <div className="flex justify-between items-center ">
           <h1 className=" text-[#212121] text-[26px] font-mono ">
-            Statements - {resturant?.activeResturant?.name}
+            Statements - {restaurant?.activeRestaurant?.name}
           </h1>
           {tapList === true ? (
             <button

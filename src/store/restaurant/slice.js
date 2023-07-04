@@ -1,10 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-export const resturantSlice = createSlice({
-  name: "resturant",
+export const restaurantSlice = createSlice({
+  name: "restaurant",
   initialState: {
     restaurantList: [],
-    activeResturant: null,
+    activeRestaurant: null,
     sehedules:[],
     deliveryZones: [],
     activeDeliveryZones: null,
@@ -28,10 +28,10 @@ export const resturantSlice = createSlice({
       };
     },
 
-    activeResturant: (state, action) => {
+    activeRestaurant: (state, action) => {
       return {
         ...state,
-        activeResturant: action.payload,
+        activeRestaurant: action.payload,
       };
     },
 

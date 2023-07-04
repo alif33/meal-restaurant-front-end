@@ -1,13 +1,7 @@
 import React, { useEffect, useState } from "react";
 import CardWidgetWithTitle from "../../components/CardWidgetWithTitle";
 import Layout from "../../base/Layout";
-import { BsInfoSquare } from "react-icons/bs";
 import { HiPencil } from "react-icons/hi";
-import { FaUserTie } from "react-icons/fa";
-// import Image from "next/image";
-// import Manager from "../../../public/img/manager-svgrepo-com 1.png";
-// import Status from "../../../public/img/status-info-svgrepo-com 1.png";
-
 import { useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import ManagerRepresentativesForm from "../../components/ManagerRepresentativesForm";
@@ -35,13 +29,13 @@ const Settings = () => {
 
   const [managerRepresentativesForm, setManagerRepresentativesForm] =
     useState(false);
-  const { admin, resturant } = useSelector((state) => state);
-  const { activeResturant } = resturant;
+  const { admin, restaurant } = useSelector((state) => state);
+  const { activeRestaurant } = restaurant;
   const [isReload, setIsReload] = useState(false);
 
   console.log(
-    "resturant?.activeResturantresturant?.activeResturant",
-    resturant?.activeResturant
+    "resturant?.activeRestaurantresturant?.activeRestaurant",
+    restaurant?.activeRestaurant
   );
   const {
     register,
@@ -51,7 +45,7 @@ const Settings = () => {
   } = useForm();
 
   useEffect(() => {
-    if (!resturant?.activeResturant) {
+    if (!restaurant?.activeRestaurant) {
     }
   }, []);
 
@@ -92,13 +86,13 @@ const Settings = () => {
 
   return (
     <Layout status="restaurant" _resturant={true}>
-      {!resturant.activeResturant ? (
+      {!restaurant.activeRestaurant ? (
         <h1>loading</h1>
       ) : (
         <>
           <div className="w-[97%] mx-auto mt-4">
             <h3 className="text-2xl font-mono font-medium ">
-              Settings - {resturant?.activeResturant?.name}
+              Settings - {restaurant?.activeRestaurant?.name}
             </h3>
             <div className="mt-3 grid grid-cols-[33%_33%_33%] gap-[1%] ">
               <div className="">
@@ -124,7 +118,7 @@ const Settings = () => {
                       <li className=" grid grid-cols-2 items-center ">
                         <p className=" text-sm text-[#717171] ">Shop Status:</p>
                         <p className="text-md flex justify-start items-center  ">
-                          {resturant?.activeResturant?.status}
+                          {restaurant?.activeRestaurant?.status}
                           <svg
                             className="ml-2"
                             width="20"
@@ -166,7 +160,7 @@ const Settings = () => {
                       <li className=" grid grid-cols-2 items-center  mb-2">
                         <p className=" text-sm text-[#717171] ">Shop Name:</p>
                         <p className="text-md ">
-                          {resturant?.activeResturant?.name}
+                          {restaurant?.activeRestaurant?.name}
                         </p>
                       </li>
                       <li className=" grid grid-cols-2 items-center  mb-2">
@@ -175,7 +169,7 @@ const Settings = () => {
                           <img
                             width="200"
                             height="100"
-                            src={resturant?.activeResturant?.shopLogo}
+                            src={restaurant?.activeRestaurant?.shopLogo}
                             alt="shop-logo"
                           />
                         </p>
@@ -258,16 +252,16 @@ const Settings = () => {
                           Account Manager:{" "}
                         </p>
                         <p className="text-md ">
-                          {activeResturant?.accountManager}
+                          {activeRestaurant?.accountManager}
                         </p>
                       </li>
                       <li className=" grid grid-cols-2 items-center mb-2">
                         <p className=" text-sm text-[#717171] ">Sales Rep.</p>
-                        <p className="text-md ">{activeResturant?.salesRep}</p>
+                        <p className="text-md ">{activeRestaurant?.salesRep}</p>
                       </li>
                       <li className=" grid grid-cols-2 items-center mb-2">
                         <p className=" text-sm text-[#717171] ">Menu Rep.</p>
-                        <p className="text-md ">{activeResturant?.menuRep}</p>
+                        <p className="text-md ">{activeRestaurant?.menuRep}</p>
                       </li>
                     </ul>
                   </div>
@@ -325,31 +319,31 @@ const Settings = () => {
                     <ul className="mt-3">
                       <li className=" grid grid-cols-2 items-center mb-2">
                         <p className=" text-sm text-[#717171] ">Address:</p>
-                        <p className="text-md ">{activeResturant?._address}</p>
+                        <p className="text-md ">{activeRestaurant?._address}</p>
                       </li>
                       <li className=" grid grid-cols-2 items-center mb-2">
                         <p className=" text-sm text-[#717171] ">City:</p>
-                        <p className="text-md ">{activeResturant?.city}</p>
+                        <p className="text-md ">{activeRestaurant?.city}</p>
                       </li>
                       <li className=" grid grid-cols-2 items-center mb-2">
                         <p className=" text-sm text-[#717171] ">State:</p>
-                        <p className="text-md ">{activeResturant?.state}</p>
+                        <p className="text-md ">{activeRestaurant?.state}</p>
                       </li>
                       <li className=" grid grid-cols-2 items-center mb-2">
                         <p className=" text-sm text-[#717171] ">Zip Code:</p>
-                        <p className="text-md ">{activeResturant?.zipCode}</p>
+                        <p className="text-md ">{activeRestaurant?.zipCode}</p>
                       </li>
                       <li className=" grid grid-cols-2 items-center mb-2">
                         <p className=" text-sm text-[#717171] ">Country:</p>
-                        <p className="text-md ">{activeResturant?.country}</p>
+                        <p className="text-md ">{activeRestaurant?.country}</p>
                       </li>
                       <li className=" grid grid-cols-2 items-center mb-2">
                         <p className=" text-sm text-[#717171] ">Longitude:</p>
-                        <p className="text-md ">{activeResturant?.lat}</p>
+                        <p className="text-md ">{activeRestaurant?.lat}</p>
                       </li>
                       <li className=" grid grid-cols-2 items-center mb-2">
                         <p className=" text-sm text-[#717171] ">Latitude:</p>
-                        <p className="text-md ">{activeResturant?.long}</p>
+                        <p className="text-md ">{activeRestaurant?.long}</p>
                       </li>
                     </ul>
                   </div>
@@ -408,7 +402,7 @@ const Settings = () => {
                           Payment Type:{" "}
                         </p>
                         <p className="text-md ">
-                          {activeResturant?.paymentType}
+                          {activeRestaurant?.paymentType}
                         </p>
                       </li>
                       <li className=" grid grid-cols-2 items-center mb-2">
@@ -416,7 +410,7 @@ const Settings = () => {
                           Email Statement to:{" "}
                         </p>
                         <p className="text-md ">
-                          {activeResturant?.emailStatement_}
+                          {activeRestaurant?.emailStatement_}
                         </p>
                       </li>
                       <li className=" grid grid-cols-2 items-center mb-2">
@@ -424,21 +418,21 @@ const Settings = () => {
                           Payment Frequency:{" "}
                         </p>
                         <p className="text-md ">
-                          {activeResturant?.paymentFrequency}
+                          {activeRestaurant?.paymentFrequency}
                         </p>
                       </li>
                       <li className=" grid grid-cols-2 items-center mb-2">
                         <p className=" text-sm text-[#717171] ">
                           Flat Fee (MealNow)
                         </p>
-                        <p className="text-md ">{activeResturant?.flatFee}%</p>
+                        <p className="text-md ">{activeRestaurant?.flatFee}%</p>
                       </li>
                       <li className=" grid grid-cols-2 items-center mb-2 border-t-2 pt-4">
                         <p className=" text-sm text-[#717171] ">
                           Free Trial End Date:
                         </p>
                         <p className="text-md ">
-                          {activeResturant?.trialEndDate}
+                          {activeRestaurant?.trialEndDate}
                         </p>
                       </li>
                       <li className=" grid grid-cols-2 items-center mb-2">
@@ -446,7 +440,7 @@ const Settings = () => {
                           Processing Fee:
                         </p>
                         <p className="text-md ">
-                          {activeResturant?.processingFee} %
+                          {activeRestaurant?.processingFee} %
                         </p>
                       </li>
                       <li className=" grid grid-cols-2 items-center mb-2">
@@ -454,7 +448,7 @@ const Settings = () => {
                           Contact Method:
                         </p>
                         <p className="text-md ">
-                          {activeResturant?.contactMethod}
+                          {activeRestaurant?.contactMethod}
                         </p>
                       </li>
                     </ul>
@@ -504,12 +498,12 @@ const Settings = () => {
                     <ul className="mt-3">
                       <li className=" grid grid-cols-2 items-center mb-2">
                         <p className=" text-sm text-[#717171] ">GMB Domain:</p>
-                        <p className="text-md ">{activeResturant?.gbmDomain}</p>
+                        <p className="text-md ">{activeRestaurant?.gbmDomain}</p>
                       </li>
                       <li className=" grid grid-cols-2 items-center mb-2">
                         <p className=" text-sm text-[#717171] ">Own Website:</p>
                         <p className="text-md text-[#3B7698] flex">
-                          {activeResturant?.gbmWebsite}{" "}
+                          {activeRestaurant?.gbmWebsite}{" "}
                           <svg
                             width="15"
                             height="16"
@@ -534,7 +528,7 @@ const Settings = () => {
                       <li className=" grid grid-cols-2 items-center mb-2">
                         <p className=" text-sm text-[#717171] ">GMB Status:</p>
                         <p className="text-md flex  ">
-                          {activeResturant?.gbmStatus}{" "}
+                          {activeRestaurant?.gbmStatus}{" "}
                           <svg
                             width="18"
                             height="19"
@@ -553,27 +547,27 @@ const Settings = () => {
                       </li>
                       <li className=" grid grid-cols-2 items-center mb-2">
                         <p className=" text-sm text-[#717171] ">GMB Role:</p>
-                        <p className="text-md ">{activeResturant?.gbmRole}</p>
+                        <p className="text-md ">{activeRestaurant?.gbmRole}</p>
                       </li>
                       <li className=" grid grid-cols-2 items-center mb-2">
                         <p className=" text-sm text-[#717171] ">
                           MealNow Domain:
                         </p>
                         <p className="text-md text-[#3B7698] ">
-                          {activeResturant?.mealDomain}
+                          {activeRestaurant?.mealDomain}
                         </p>
                       </li>
                       <li className=" grid grid-cols-2 items-center mb-2">
                         <p className=" text-sm text-[#717171] ">GMB Email:</p>
-                        <p className="text-md  ">{activeResturant?.gbmEmail}</p>
+                        <p className="text-md  ">{activeRestaurant?.gbmEmail}</p>
                       </li>
                       <li className=" grid grid-cols-2 items-center mb-2">
                         <p className=" text-sm text-[#717171] ">Password: </p>
-                        <p className="text-md  ">{activeResturant?.password}</p>
+                        <p className="text-md  ">{activeRestaurant?.password}</p>
                       </li>
                       <li className=" grid grid-cols-2 items-center mb-2">
                         <p className=" text-sm text-[#717171] ">GMB Owner: </p>
-                        <p className="text-md  ">{activeResturant?.gbmOwner}</p>
+                        <p className="text-md  ">{activeRestaurant?.gbmOwner}</p>
                       </li>
                     </ul>
                   </div>
@@ -621,14 +615,14 @@ const Settings = () => {
                     <ul className="mt-3">
                       <li className=" grid grid-cols-2 items-center  mb-2">
                         <p className=" text-sm text-[#717171] ">Owners Name:</p>
-                        <p className="text-md ">{activeResturant?.ownerName}</p>
+                        <p className="text-md ">{activeRestaurant?.ownerName}</p>
                       </li>
                       <li className=" grid grid-cols-2 items-center  mb-2">
                         <p className=" text-sm text-[#717171] ">
                           Owners Phone:
                         </p>
                         <p className="text-md ">
-                          {activeResturant?.ownerPhone}
+                          {activeRestaurant?.ownerPhone}
                         </p>
                       </li>
                       <li className=" grid grid-cols-2 items-center  mb-2">
@@ -636,33 +630,33 @@ const Settings = () => {
                           Owners Email:
                         </p>
                         <p className="text-md ">
-                          {activeResturant?.ownerEmail}
+                          {activeRestaurant?.ownerEmail}
                         </p>
                       </li>
                       <li className=" grid grid-cols-2 items-center mb-2 border-t-2 pt-4">
                         <p className=" text-sm text-[#717171] ">
                           Secondary Contact Name:{" "}
                         </p>
-                        <p className="text-md ">{activeResturant?.secCName}</p>
+                        <p className="text-md ">{activeRestaurant?.secCName}</p>
                       </li>
                       <li className=" grid grid-cols-2 items-center  mb-2">
                         <p className=" text-sm text-[#717171] ">
                           Secondary Contact Phone:{" "}
                         </p>
-                        <p className="text-md ">{activeResturant?.secCPhone}</p>
+                        <p className="text-md ">{activeRestaurant?.secCPhone}</p>
                       </li>
                       <li className=" grid grid-cols-2 items-center  mb-2">
                         <p className=" text-sm text-[#717171] ">
                           Secondary Contact Email:{" "}
                         </p>
-                        <p className="text-md ">{activeResturant?.secCEmail}</p>
+                        <p className="text-md ">{activeRestaurant?.secCEmail}</p>
                       </li>
                       <li className=" grid grid-cols-2 items-center border-t-2 pt-4 mb-2">
                         <p className=" text-sm text-[#717171] ">
                           Restaurant Phone:
                         </p>
                         <p className="text-md ">
-                          {activeResturant?.resturantPhone}
+                          {activeRestaurant?.resturantPhone}
                         </p>
                       </li>
                     </ul>
@@ -711,7 +705,7 @@ const Settings = () => {
                           Min. pickup order:
                         </p>
                         <p className="text-md ">
-                          {activeResturant?.minPickupOrder} $
+                          {activeRestaurant?.minPickupOrder} $
                         </p>
                       </li>
                       <li className=" grid grid-cols-2 items-center  mb-2">
@@ -719,7 +713,7 @@ const Settings = () => {
                           Min. delivery order:{" "}
                         </p>
                         <p className="text-md ">
-                          {activeResturant?.minDeliveryOrder} $
+                          {activeRestaurant?.minDeliveryOrder} $
                         </p>
                       </li>
                       <li className=" grid grid-cols-2 items-center  mb-2">
@@ -727,7 +721,7 @@ const Settings = () => {
                           Pick up estimate:
                         </p>
                         <p className="text-md ">
-                          {activeResturant?.pickupEstimate}
+                          {activeRestaurant?.pickupEstimate}
                         </p>
                       </li>
                       <li className=" grid grid-cols-2 items-center border-t-2 pt-4 mb-2">
@@ -735,7 +729,7 @@ const Settings = () => {
                           Delivery estimate:
                         </p>
                         <p className="text-md ">
-                          {activeResturant?.deliveryEstimate}
+                          {activeRestaurant?.deliveryEstimate}
                         </p>
                       </li>
                       <li className=" grid grid-cols-2 items-center  mb-2">
@@ -743,19 +737,19 @@ const Settings = () => {
                           Online discount:
                         </p>
                         <p className="text-md ">
-                          {activeResturant?.onlineDiscount} %
+                          {activeRestaurant?.onlineDiscount} %
                         </p>
                       </li>
                       <li className=" grid grid-cols-2 items-center  mb-2">
                         <p className=" text-sm text-[#717171] ">Delivery: </p>
                         <p
                           className={`text-md  ${
-                            activeResturant?.delivery === "ON"
+                            activeRestaurant?.delivery === "ON"
                               ? "text-[#6FB327]"
                               : "text-[#B32727]"
                           }`}
                         >
-                          {activeResturant?.delivery}
+                          {activeRestaurant?.delivery}
                         </p>
                       </li>
                       <li className=" grid grid-cols-2 items-center  mb-2">
@@ -764,12 +758,12 @@ const Settings = () => {
                         </p>
                         <p
                           className={`text-md  ${
-                            activeResturant?.scheduledOrders === "ON"
+                            activeRestaurant?.scheduledOrders === "ON"
                               ? "text-[#6FB327]"
                               : "text-[#B32727]"
                           }`}
                         >
-                          {activeResturant?.scheduledOrders}
+                          {activeRestaurant?.scheduledOrders}
                         </p>
                       </li>
                       <li className=" grid grid-cols-2 items-center  mb-2">
@@ -779,12 +773,12 @@ const Settings = () => {
                         <p className="">
                           <span
                             className={`text-md  ${
-                              activeResturant?.ordersToday === "ON"
+                              activeRestaurant?.ordersToday === "ON"
                                 ? "text-[#6FB327]"
                                 : "text-[#B32727]"
                             }`}
                           >
-                            {activeResturant?.ordersToday}
+                            {activeRestaurant?.ordersToday}
                           </span>{" "}
                           <span className="text-[11px]">
                             (will be auto enabled next day)

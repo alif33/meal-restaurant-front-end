@@ -3,14 +3,14 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { useSelector, useDispatch } from "react-redux";
-import { activeResturant } from "../store/resturant/actions";
+import { activeRestaurant } from "../store/restaurant/actions";
 import { updateData } from "../__lib__/helpers/HttpService";
 
 const LocationForm = ({ locationForm, setLocationForm, children }) => {
-  const { admin, resturant } = useSelector((state) => state);
+  const { admin, restaurant } = useSelector((state) => state);
 
   const dispatch = useDispatch();
-  console.log("resturant_resturant", resturant);
+  console.log("resturant_resturant", restaurant);
   const {
     register,
     reset,
@@ -19,12 +19,12 @@ const LocationForm = ({ locationForm, setLocationForm, children }) => {
   } = useForm();
   const onSubmit = (data) => {
     updateData(
-      `/restaurant?_id=${resturant?.activeResturant?._id}`,
+      `/restaurant?_id=${restaurant?.activeRestaurant?._id}`,
       data,
       admin?.token
     ).then((res) => {
       if (res.success) {
-        dispatch(activeResturant(res.restaurant));
+        dispatch(activeRestaurant(res.restaurant));
         setLocationForm(!locationForm);
         toast.success(`${res.message}`);
       }
@@ -60,7 +60,7 @@ const LocationForm = ({ locationForm, setLocationForm, children }) => {
               className={`input w-full border-2  h-[40.85px] p-3   ${
                 errors.address ? "border-red-600  " : ""
               }`}
-              defaultValue={resturant?.activeResturant?._address}
+              defaultValue={restaurant?.activeRestaurant?._address}
               type="text"
               placeholder=""
               {...register("_address", {
@@ -83,7 +83,7 @@ const LocationForm = ({ locationForm, setLocationForm, children }) => {
               className={`input w-full border-2  h-[40.85px] p-3   ${
                 errors.city ? "border-red-600  " : ""
               }`}
-              defaultValue={resturant?.activeResturant?.city}
+              defaultValue={restaurant?.activeRestaurant?.city}
               type="text"
               placeholder=""
               {...register("city.", {
@@ -107,7 +107,7 @@ const LocationForm = ({ locationForm, setLocationForm, children }) => {
                 errors.state ? "border-red-600  " : ""
               }`}
               type="text"
-              defaultValue={resturant?.activeResturant?.state}
+              defaultValue={restaurant?.activeRestaurant?.state}
               placeholder=""
               {...register("state", {
                 required: "State is required.",
@@ -130,7 +130,7 @@ const LocationForm = ({ locationForm, setLocationForm, children }) => {
                 errors.zipCode ? "border-red-600  " : ""
               }`}
               type="text"
-              defaultValue={resturant?.activeResturant?.zipCode}
+              defaultValue={restaurant?.activeRestaurant?.zipCode}
               placeholder=""
               {...register("zipCode", {
                 required: "Zip Code is required.",
@@ -163,7 +163,7 @@ const LocationForm = ({ locationForm, setLocationForm, children }) => {
                 errors.country ? "border-red-600  " : ""
               }`}
               type="text"
-              defaultValue={resturant?.activeResturant?.country}
+              defaultValue={restaurant?.activeRestaurant?.country}
               placeholder=""
               {...register("country", {
                 required: "Country is required.",
@@ -186,7 +186,7 @@ const LocationForm = ({ locationForm, setLocationForm, children }) => {
                 errors.long ? "border-red-600  " : ""
               }`}
               type="text"
-              defaultValue={resturant?.activeResturant?.lat}
+              defaultValue={restaurant?.activeRestaurant?.lat}
               placeholder=""
               {...register("long", {
                 required: "Longitude is required.",
@@ -219,7 +219,7 @@ const LocationForm = ({ locationForm, setLocationForm, children }) => {
                 errors.lat ? "border-red-600  " : ""
               }`}
               type="text"
-              defaultValue={resturant?.activeResturant?.long}
+              defaultValue={restaurant?.activeRestaurant?.long}
               placeholder=""
               {...register("lat", {
                 required: "Latitude is required.",

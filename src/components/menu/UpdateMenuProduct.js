@@ -32,7 +32,7 @@ const UpdateMenuProduct = ({ updateProductModal, setUpdateProductModal }) => {
     setShopCheckFile(true);
   };
 
-  const { resturant, menu, admin } = useSelector((state) => state);
+  const { restaurant, menu, admin } = useSelector((state) => state);
   const {
     register,
     reset,
@@ -72,7 +72,7 @@ const UpdateMenuProduct = ({ updateProductModal, setUpdateProductModal }) => {
     ).then((res) => {
 
       if (res.success) {
-        dispatch(setCategories(resturant.activeResturant?._id));
+        dispatch(setCategories(restaurant.activeRestaurant?._id));
         toast.success(`${res.message}`);
       }
 
@@ -155,7 +155,7 @@ const UpdateMenuProduct = ({ updateProductModal, setUpdateProductModal }) => {
           <div className="flex justify-between items-center mt-[38px]">
             <div>
               <h1 className="font-light text-[28px]">
-                Menu - {resturant?.activeResturant?.name}{" "}
+                Menu - {restaurant?.activeRestaurant?.name}{" "}
               </h1>
               <label
                 htmlFor=""

@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { useSelector, useDispatch } from "react-redux";
 import { addCategory, setCategories } from "../../store/menu/actions";
-import { setRestaurant } from "../../store/resturant/actions";
+import { setRestaurant } from "../../store/restaurant/actions";
 import {
   authPost,
   postData,
@@ -20,14 +20,14 @@ const AddCategory = ({ categoryModal, setCategoryModal }) => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const { resturant, auth, menu } = useSelector((state) => state);
+  const { restaurant, auth, menu } = useSelector((state) => state);
   const dispatch = useDispatch();
   const formData = watch();
 
 
   useEffect(() => {
     dispatch(setRestaurant(auth.token));
-    dispatch(setCategories(resturant.activeResturant?._id));
+    dispatch(setCategories(restaurant.activeRestaurant?._id));
   }, []);
 
 
@@ -42,12 +42,12 @@ const AddCategory = ({ categoryModal, setCategoryModal }) => {
     console.log("calling");
     authPost(
       "/menu/category",
-      { ...data, resturant: resturant.activeResturant?._id },
+      { ...data, resturant: restaurant.activeRestaurant?._id },
       auth.token
     )
       .then((res) => {
         console.log(res);
-        dispatch(setCategories(resturant.activeResturant?._id));
+        dispatch(setCategories(restaurant.activeRestaurant?._id));
         reset();
         setCategoryModal(!categoryModal);
       })

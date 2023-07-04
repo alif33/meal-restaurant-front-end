@@ -13,7 +13,7 @@ import { setCategories } from "../../store/menu/actions";
 
 const EditCategoryFrom = ({ editCategoryModal, setEditCategoryModal }) => {
   const [rid, setRid] = useState()
-  const { resturant, admin, menu } = useSelector((state) => state);
+  const { restaurant, menu } = useSelector((state) => state);
   const dispatch = useDispatch();
 
   const {
@@ -51,7 +51,7 @@ const EditCategoryFrom = ({ editCategoryModal, setEditCategoryModal }) => {
         { ...data }
       ).then((res) => {
         if (res.success) {
-          dispatch(setCategories(resturant.activeResturant?._id));
+          dispatch(setCategories(restaurant.activeRestaurant?._id));
           toast.success(`${res.message}`);
           setEditCategoryModal(false)
         }

@@ -3,11 +3,11 @@ import { useForm } from "react-hook-form";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { useSelector, useDispatch } from "react-redux";
 import { updateData } from "../__lib__/helpers/HttpService";
-import { activeResturant } from "../store/resturant/actions";
+import { activeRestaurant } from "../store/restaurant/actions";
 import { toast } from "react-hot-toast";
 
 const SeoForm = ({ children, seoForm, setSeoForm }) => {
-  const { admin, resturant } = useSelector((state) => state);
+  const { admin, restaurant } = useSelector((state) => state);
   const dispatch = useDispatch();
   const {
     register,
@@ -17,12 +17,12 @@ const SeoForm = ({ children, seoForm, setSeoForm }) => {
   } = useForm();
   const onSubmit = (data) => {
     updateData(
-      `/restaurant?_id=${resturant?.activeResturant?._id}`,
+      `/restaurant?_id=${restaurant?.activeRestaurant?._id}`,
       data,
       admin?.token
     ).then((res) => {
       if (res.success) {
-        dispatch(activeResturant(res.restaurant));
+        dispatch(activeRestaurant(res.restaurant));
         setSeoForm(!seoForm);
         toast.success(`${res.message}`);
       }
@@ -57,7 +57,7 @@ const SeoForm = ({ children, seoForm, setSeoForm }) => {
             <input
               className="input w-full border-2 h-[40.85px] p-3 "
               type="text"
-              defaultValue={resturant?.activeResturant?.gbmDomain}
+              defaultValue={restaurant?.activeRestaurant?.gbmDomain}
               placeholder=""
               {...register("gbmDomain", {
                 required: "GMB Domain is required.",
@@ -76,7 +76,7 @@ const SeoForm = ({ children, seoForm, setSeoForm }) => {
             <input
               className="input w-full border-2 h-[40.85px] p-3"
               type="text"
-              defaultValue={resturant?.activeResturant?.gbmWebsite}
+              defaultValue={restaurant?.activeRestaurant?.gbmWebsite}
               placeholder=""
               {...register("gbmWebsite", {
                 required: "Own Website is required.",
@@ -105,7 +105,7 @@ const SeoForm = ({ children, seoForm, setSeoForm }) => {
             <input
               className="input w-full border-2 h-[40.85px] p-3"
               type="text"
-              defaultValue={resturant?.activeResturant?.gbmStatus}
+              defaultValue={restaurant?.activeRestaurant?.gbmStatus}
               placeholder=""
               {...register("gbmStatus", {
                 required: "GMB Status is required.",
@@ -124,7 +124,7 @@ const SeoForm = ({ children, seoForm, setSeoForm }) => {
             <input
               className="input w-full border-2 h-[40.85px] p-3"
               type="text"
-              defaultValue={resturant?.activeResturant?.gbmRole}
+              defaultValue={restaurant?.activeRestaurant?.gbmRole}
               placeholder=""
               {...register("gbmRole", {
                 required: "GMB Role is required.",
@@ -143,7 +143,7 @@ const SeoForm = ({ children, seoForm, setSeoForm }) => {
             <input
               className="input w-full border-2 h-[40.85px] p-3"
               type="text"
-              defaultValue={resturant?.activeResturant?.mealDomain}
+              defaultValue={restaurant?.activeRestaurant?.mealDomain}
               placeholder=""
               {...register("mealDomain", {
                 required: "MealNow Domain is required.",
@@ -162,7 +162,7 @@ const SeoForm = ({ children, seoForm, setSeoForm }) => {
             <input
               className="input w-full border-2 h-[40.85px] p-3"
               type="text"
-              defaultValue={resturant?.activeResturant?.gbmEmail}
+              defaultValue={restaurant?.activeRestaurant?.gbmEmail}
               placeholder=""
               {...register("gbmEmail", {
                 required: "Menu Rep. Name is required.",
@@ -190,7 +190,7 @@ const SeoForm = ({ children, seoForm, setSeoForm }) => {
             <input
               className="input w-full border-2 h-[40.85px] p-3"
               type="text"
-              defaultValue={resturant?.activeResturant?.password}
+              defaultValue={restaurant?.activeRestaurant?.password}
               placeholder=""
               {...register("password", {
                 required: "Password is required.",
@@ -209,7 +209,7 @@ const SeoForm = ({ children, seoForm, setSeoForm }) => {
             <input
               className="input w-full border-2 h-[40.85px] p-3"
               type="text"
-              defaultValue={resturant?.activeResturant?.gbmOwner}
+              defaultValue={restaurant?.activeRestaurant?.gbmOwner}
               placeholder=""
               {...register("gbmOwner", {
                 required: "GMB Owner is required.",

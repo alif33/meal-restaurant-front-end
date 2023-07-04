@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { useSelector, useDispatch } from "react-redux";
-import { setCoupons } from "../../store/resturant/actions";
+import { setCoupons } from "../../store/restaurant/actions";
 import { updateData } from "../../__lib__/helpers/HttpService";
 
 const CouponForm = ({
@@ -18,7 +18,7 @@ const CouponForm = ({
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const { auth, resturant } = useSelector((state) => state);
+  const { auth, restaurant } = useSelector((state) => state);
   const dispatch = useDispatch();
   const {
     _id, 
@@ -27,7 +27,7 @@ const CouponForm = ({
     _type, 
     _discount, 
     _condition 
-  } = resturant.coupons[couponFormEditNumber];
+  } = restaurant.coupons[couponFormEditNumber];
 
   const onError = (err) => console.log(err);
   const onSubmit = (data) => {
@@ -37,7 +37,7 @@ const CouponForm = ({
         
         if(res.success){
           dispatch(setCoupons(
-            resturant?.activeResturant?._id, 
+            restaurant?.activeRestaurant?._id, 
             auth?.token
           ));
           toast.success(`${res.message}`);

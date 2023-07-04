@@ -10,13 +10,13 @@ import Layout from "../../base/Layout";
 import CouponForm from "../../components/coupons/CouponForm";
 import AddNewCouponFrom from "../../components/coupons/AddNewCouponFrom";
 import { authPost, deleteData } from "../../__lib__/helpers/HttpService";
-import { setCoupons } from "../../store/resturant/actions";
+import { setCoupons } from "../../store/restaurant/actions";
 
 const RestaurantCoupons = () => {
 
   const [couponForm, setCouponForm] = useState(false);
   const [addNewCouponFrom, setAddNewCouponFrom] = useState(false);
-  const { auth, resturant } = useSelector((state) => state);
+  const { auth, restaurant } = useSelector((state) => state);
   const [couponFormEditNumber, setCouponFormEditNumber] = useState();
   const dispatch = useDispatch();
   const {
@@ -28,7 +28,7 @@ const RestaurantCoupons = () => {
 
   useEffect(()=>{
     dispatch(setCoupons(
-      resturant?.activeResturant?._id, 
+      restaurant?.activeRestaurant?._id, 
       auth?.token
     ));
   }, [])
@@ -36,13 +36,13 @@ const RestaurantCoupons = () => {
 
   const onSubmit = (data) => {
     authPost(
-      `/restaurant/coupon?_id=${resturant?.activeResturant?._id}`,
+      `/restaurant/coupon?_id=${restaurant?.activeRestaurant?._id}`,
       data,
       auth?.token
     ).then((res) => {
       if (res.success) {
         dispatch(setCoupons(
-          resturant?.activeResturant?._id, 
+          restaurant?.activeRestaurant?._id, 
           auth?.token
         ));
         reset();
@@ -56,7 +56,7 @@ const RestaurantCoupons = () => {
     .then(res=>{
       if(res.success){
         dispatch(setCoupons(
-          resturant?.activeResturant?._id, 
+          restaurant?.activeRestaurant?._id, 
           auth?.token
         ));
         toast.success(`${res.message}`);
@@ -69,7 +69,7 @@ const RestaurantCoupons = () => {
       <div className="w-[97%] mx-auto mt-4">
         <div className="flex justify-between items-center mx-3">
           <h3 className="text-2xl font-mono font-medium ">
-            Coupons - {resturant?.activeResturant?.name}
+            Coupons - {restaurant?.activeRestaurant?.name}
           </h3>
           <button
             onClick={() => setAddNewCouponFrom(!addNewCouponFrom)}
@@ -80,7 +80,7 @@ const RestaurantCoupons = () => {
         </div>
         <div className="mt-3 grid grid-cols-[33%_33%_33%] gap-[1%] ">
           <div className="">
-            { Array.isArray(resturant?.coupons) && resturant?.coupons.map(
+            { Array.isArray(restaurant?.coupons) && restaurant?.coupons.map(
               (coupon, index) => (
                 <CardWidgetWithTitle key={index}>
                   <div className="py-4 px-5">

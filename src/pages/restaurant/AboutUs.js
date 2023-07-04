@@ -8,11 +8,11 @@ import { useForm } from "react-hook-form";
 import { useSelector, useDispatch } from "react-redux";
 // import { useDispatch } from "react-redux";
 import { updateData } from "../../__lib__/helpers/HttpService";
-import { activeResturant } from "../../store/resturant/actions";
+import { activeRestaurant } from "../../store/restaurant/actions";
 
 const AboutUs = () => {
   const [addUserForm, setAddUserForm] = useState(false);
-  const { auth, resturant } = useSelector((state) => state);
+  const { auth, restaurant } = useSelector((state) => state);
 
   const dispatch = useDispatch();
   const {
@@ -25,14 +25,14 @@ const AboutUs = () => {
   const onError = (err) => console.log(err);
   
   const onSubmit = (data) => {
-    console.log(resturant?.activeResturant?._id);
+    console.log(restaurant?.activeRestaurant?._id);
     
     updateData(
-      // `/resturant?_id=${resturant?.activeResturant?._id}`,
+      // `/resturant?_id=${resturant?.activeRestaurant?._id}`,
       // { ...data, ...images },
       // admin?.token
 
-      `/restaurant?_id=${ resturant?.activeResturant?._id }`,
+      `/restaurant?_id=${ restaurant?.activeRestaurant?._id }`,
       data,
       auth?.token
     ).then((res) => {
@@ -40,24 +40,24 @@ const AboutUs = () => {
       console.log("RES", res);
 
       // if (res.success) {
-      //   dispatch(activeResturant(res.resturant));
+      //   dispatch(activeRestaurant(res.resturant));
       // }
       setAddUserForm(!addUserForm);
       reset();
     });
   };
   return (
-    <Layout ___resturant__={true} status="restaurant">
+    <Layout ___restaurant__={true} status="restaurant">
       <div className="w-11/12 mx-auto mt-4">
         <div className="border-b-2 pb-[48px]">
           <h1 className="text-[26px] font-light">
-            About Us - { resturant?.activeResturant?.name }
+            About Us - { restaurant?.activeRestaurant?.name }
           </h1>
         </div>
         <div className="w-[656px] h-[320px] bg-white shadow-md mt-[16px] p-[21px]">
           <div>
             <h1 className="font-bold pb-4">Landing Page - About Us section:</h1>
-            <p>{resturant?.activeResturant?.aboutUs}</p>
+            <p>{restaurant?.activeRestaurant?.aboutUs}</p>
           </div>
           <div className="text-end mt-40">
             <button className="border-lime-600 border-[1px] py-1 px-[5px] rounded-2xl w-20 flex">
@@ -101,7 +101,7 @@ const AboutUs = () => {
                     errors?.aboutUs ? "border-red-600  " : ""
                   }`}
                   type="text"
-                  defaultValue={resturant?.activeResturant?.aboutUs}
+                  defaultValue={restaurant?.activeRestaurant?.aboutUs}
                   placeholder=""
                   {...register("aboutUs", {
                     required: " About Us Rep. is required.",

@@ -7,7 +7,7 @@ import ClosuresForm from "../../components/schedule/ClosuresForm";
 import DeliveryFrom from "../../components/schedule/DeliveryFrom";
 import PickupFrom from "../../components/schedule/PickupFrom";
 import SpecialHoursForm from "../../components/schedule/SpecialHoursForm";
-import { setSchedules } from "../../store/resturant/actions";
+import { setSchedules } from "../../store/restaurant/actions";
 
 const RestaurantSchedule = () => {
   const [addUserForm, setAddUserForm] = useState(false);
@@ -17,11 +17,11 @@ const RestaurantSchedule = () => {
   const [closuresForm, setClosuresForm] = useState(false);
   const [deliverySche, setDeliverySche] = useState([]);
 
-  const { admin, resturant } = useSelector((state) => state);
+  const { admin, restaurant } = useSelector((state) => state);
   const dispatch = useDispatch();
 
   useEffect(()=>{
-    dispatch(setSchedules(resturant?.activeResturant?._id))
+    dispatch(setSchedules(restaurant?.activeRestaurant?._id))
   }, [])
 
   return (
@@ -29,7 +29,7 @@ const RestaurantSchedule = () => {
       <div className="w-11/12 mx-auto mt-4">
         <div className="flex justify-between items-center  border-b border-solid border-[#c7c7c7] pb-4 ">
           <h1 className=" text-[#212121] text-[26px] font-mono ">
-            Schedule - { resturant?.activeResturant?.name }
+            Schedule - { restaurant?.activeRestaurant?.name }
           </h1>
           <div className="">
             <button
@@ -65,9 +65,9 @@ const RestaurantSchedule = () => {
                   </p>
                 </li>
                 {
-                  resturant?.sehedules && 
-                  Array.isArray(resturant?.sehedules) &&
-                  resturant.sehedules.map((delivery, index)=>{
+                  restaurant?.sehedules && 
+                  Array.isArray(restaurant?.sehedules) &&
+                  restaurant.sehedules.map((delivery, index)=>{
                     if(delivery.genre==="Delivery"){
                       return(
                         <li key={index} className=" grid grid-cols-2 items-center border-b border-solid border-[#908C8C] ">
@@ -109,9 +109,9 @@ const RestaurantSchedule = () => {
                   </p>
                 </li>
                 {
-                  resturant?.sehedules && 
-                  Array.isArray(resturant?.sehedules) &&
-                  resturant.sehedules.map((delivery, index)=>{
+                  restaurant?.sehedules && 
+                  Array.isArray(restaurant?.sehedules) &&
+                  restaurant.sehedules.map((delivery, index)=>{
                     if(delivery.genre==="Pickup"){
                       return(
                         <li key={index} className=" grid grid-cols-2 items-center border-b border-solid border-[#908C8C] ">
@@ -155,9 +155,9 @@ const RestaurantSchedule = () => {
                   </p>
                 </li>
                 {
-                  resturant?.sehedules && 
-                  Array.isArray(resturant?.sehedules) &&
-                  resturant.sehedules.map((delivery, index)=>{
+                  restaurant?.sehedules && 
+                  Array.isArray(restaurant?.sehedules) &&
+                  restaurant.sehedules.map((delivery, index)=>{
                     if(delivery.genre==="Special Hour"){
                       return(
                         <li key={index} className=" grid grid-cols-2 items-center border-b border-solid border-[#908C8C] ">
@@ -199,9 +199,9 @@ const RestaurantSchedule = () => {
                   </p>
                 </li>
                 {
-                  resturant?.sehedules && 
-                  Array.isArray(resturant?.sehedules) &&
-                  resturant.sehedules.map((delivery, index)=>{
+                  restaurant?.sehedules && 
+                  Array.isArray(restaurant?.sehedules) &&
+                  restaurant.sehedules.map((delivery, index)=>{
                     if(delivery.genre==="Closure"){
                       return(
                         <li key={index} className=" grid grid-cols-2 items-center border-b border-solid border-[#908C8C] ">

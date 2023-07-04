@@ -4,19 +4,19 @@ import toast from "react-hot-toast";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { useSelector, useDispatch } from "react-redux";
 import { addCategory, setCategories } from "../../store/menu/actions";
-import { setRestaurant } from "../../store/resturant/actions";
+import { setRestaurant } from "../../store/restaurant/actions";
 import { _getData, authPost, postData } from "../../__lib__/helpers/HttpService";
 import { showErr } from "../../__lib__/helpers/ErrHandler";
 
 const ImportData = ({importDataModal, setImportDataModal}) => {
   const { register, reset, handleSubmit, formState: { errors } } = useForm();
   const [ _menu, setMENU ] = useState();
-  const { resturant, admin, menu } = useSelector((state) => state);
+  const { restaurant, admin, menu } = useSelector((state) => state);
   const dispatch = useDispatch();
 
   // useEffect(() => {
   //   dispatch(setRestaurant(admin.token));
-  //   dispatch(setCategories(resturant.activeResturant?._id));
+  //   dispatch(setCategories(resturant.activeRestaurant?._id));
   // }, []);
 
   const inputhandler = e =>{
@@ -35,12 +35,12 @@ const ImportData = ({importDataModal, setImportDataModal}) => {
 
     console.log("Importing...");
     
-    authPost("/menu/import",{ menu: _menu, resturant: resturant.activeResturant?._id }, admin.token)
+    authPost("/menu/import",{ menu: _menu, resturant: restaurant.activeRestaurant?._id }, admin.token)
         .then(res=>{
             console.log(res);
             if(res.success){
                 dispatch(setCategories(
-                    resturant.activeResturant?._id
+                    restaurant.activeRestaurant?._id
                 ));
                 toast.success(`${res.message}`);
                 setImportDataModal(false);

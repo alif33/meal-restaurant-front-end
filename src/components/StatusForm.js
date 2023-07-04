@@ -5,13 +5,13 @@ import { AiOutlineCloseCircle } from "react-icons/ai";
 import { useSelector, useDispatch } from "react-redux";
 // import { useDispatch } from "react-redux";
 // import Status from "../../../public/img/status-info-svgrepo-com 1.png";
-import { activeResturant } from "../store/resturant/actions";
+import { activeRestaurant } from "../store/restaurant/actions";
 import { updateData } from "../__lib__/helpers/HttpService";
 import { toast } from "react-hot-toast";
 
 const StatusForm = ({ statusForm, setStatusForm, children }) => {
-  const { admin, resturant } = useSelector((state) => state);
-  // const { activeResturant } = resturant;
+  const { admin, restaurant } = useSelector((state) => state);
+  // const { activeRestaurant } = resturant;
   const dispatch = useDispatch();
   const {
     register,
@@ -22,12 +22,12 @@ const StatusForm = ({ statusForm, setStatusForm, children }) => {
 
   const onSubmit = (data) => {
     updateData(
-      `/restaurant?_id=${resturant?.activeResturant?._id}`,
+      `/restaurant?_id=${restaurant?.activeRestaurant?._id}`,
       data,
       admin?.token
     ).then((res) => {
       if (res.success) {
-        dispatch(activeResturant(res.restaurant));
+        dispatch(activeRestaurant(res.restaurant));
         setStatusForm(!statusForm);
         toast.success(`${res.message}`)
       }
@@ -73,7 +73,7 @@ const StatusForm = ({ statusForm, setStatusForm, children }) => {
               className={`input w-full border-2  h-[50.85px] p-3 text-xs mt-5 ${
                 errors.shopStatus ? "border-red-600  " : ""
               }`}
-              defaultValue={resturant?.activeResturant?.status}
+              defaultValue={restaurant?.activeRestaurant?.status}
               {...register("status", {
                 required: "Shop Status is required.",
               })}

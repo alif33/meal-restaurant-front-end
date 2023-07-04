@@ -28,13 +28,13 @@ const ReatauarantMenuPage = () => {
   const [productModal, setProductModal] = useState(false);
   const [updateProductModal, setUpdateProductModal] = useState(false);
   const [importDataModal, setImportDataModal] = useState(false);
-  const { resturant, menu, auth } = useSelector((state) => state);
+  const { restaurant, menu, auth } = useSelector((state) => state);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if(resturant.activeResturant?._id){
-      dispatch(setCategories(resturant.activeResturant?._id));
+    if(restaurant.activeRestaurant?._id){
+      dispatch(setCategories(restaurant.activeRestaurant?._id));
     }
   }, []);
 
@@ -46,7 +46,7 @@ const ReatauarantMenuPage = () => {
     )}`;
     const link = document.createElement("a");
     link.href = jsonString;
-    link.download = `${resturant.activeResturant.name}.json`;
+    link.download = `${restaurant.activeRestaurant.name}.json`;
 
     link.click();
   };
@@ -58,7 +58,7 @@ const ReatauarantMenuPage = () => {
     });
     authPost("/menu/drop", { _ids }, auth.token)
     .then((res) => {
-      dispatch(setCategories(resturant.activeResturant?._id));
+      dispatch(setCategories(restaurant.activeRestaurant?._id));
     });
   };
 
@@ -69,7 +69,7 @@ const ReatauarantMenuPage = () => {
 
       console.log(res);
       if (res) {
-        dispatch(setCategories(resturant.activeResturant?._id));
+        dispatch(setCategories(restaurant.activeRestaurant?._id));
         toast.success(`${res.message}`);
       }
     });
@@ -79,14 +79,14 @@ const ReatauarantMenuPage = () => {
     deleteData(`/menu/product?cid=${cid}&pid=${pid}`, auth.token)
     .then((res) => {
       if (res.success) {
-        // dispatch(setCategories(resturant.activeResturant?._id));
+        // dispatch(setCategories(restaurant.activeRestaurant?._id));
         toast.success(`${res.message}`);
       }
     });
   };
 
   return (
-    <Layout ___resturant__={true} status="restaurant">
+    <Layout ___restaurant__={true} status="restaurant">
       {productModal ? (
         <MenuProduct productModal={productModal} setProductModal={setProductModal} />
       ) : (
@@ -95,7 +95,7 @@ const ReatauarantMenuPage = () => {
             <div className="flex justify-between items-center mt-[38px]">
               <div>
                 <h1 className="font-light text-[28px]">
-                  Menus - {resturant?.activeResturant?.name}{" "}
+                  Menus - {restaurant?.activeRestaurant?.name}{" "}
                 </h1>
                 <label
                   htmlFor=""

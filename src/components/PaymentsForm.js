@@ -5,12 +5,12 @@ import { AiOutlineCloseCircle } from "react-icons/ai";
 import { useSelector, useDispatch } from "react-redux";
 // import { useSelector } from "react-redux";
 // import Payment from "../../../public/img/Payments.png";
-import { activeResturant } from "../store/resturant/actions";
+import { activeRestaurant } from "../store/restaurant/actions";
 import { updateData } from "../__lib__/helpers/HttpService";
 import { toast } from "react-hot-toast";
 
 const PaymentsForm = ({ paymentsForm, setPaymentsForm, children }) => {
-  const { admin, resturant } = useSelector((state) => state);
+  const { admin, restaurant } = useSelector((state) => state);
   const dispatch = useDispatch();
   const { 
     register,
@@ -21,12 +21,12 @@ const PaymentsForm = ({ paymentsForm, setPaymentsForm, children }) => {
   
   const onSubmit = (data) => {
     updateData(
-      `/restaurant?_id=${resturant?.activeResturant?._id}`,
+      `/restaurant?_id=${restaurant?.activeRestaurant?._id}`,
       data,
       admin?.token
     ).then((res) => {
       if (res.success) {
-        dispatch(activeResturant(res.restaurant));
+        dispatch(activeRestaurant(res.restaurant));
         setPaymentsForm(!paymentsForm);
         toast.success(`${res.message}`)
       }
@@ -63,7 +63,7 @@ const PaymentsForm = ({ paymentsForm, setPaymentsForm, children }) => {
                 errors.paymentType ? "border-red-600  " : ""
               }`}
               type="text"
-              defaultValue={resturant?.activeResturant?.paymentType}
+              defaultValue={restaurant?.activeRestaurant?.paymentType}
               placeholder=""
               {...register("paymentType", {
                 required: "Payment Type is required.",
@@ -84,7 +84,7 @@ const PaymentsForm = ({ paymentsForm, setPaymentsForm, children }) => {
                 errors.emailStatement_ ? "border-red-600  " : ""
               }`}
               type="text"
-              defaultValue={resturant?.activeResturant?.emailStatement_}
+              defaultValue={restaurant?.activeRestaurant?.emailStatement_}
               placeholder=""
               {...register("emailStatement_", {
                 required: " Email Statement to. is required.",
@@ -114,7 +114,7 @@ const PaymentsForm = ({ paymentsForm, setPaymentsForm, children }) => {
                 errors.paymentFrequency ? "border-red-600  " : ""
               }`}
               type="text"
-              defaultValue={resturant?.activeResturant?.paymentFrequency}
+              defaultValue={restaurant?.activeRestaurant?.paymentFrequency}
               placeholder=""
               {...register("paymentFrequency", {
                 required: "Payment Frequency is required.",
@@ -130,7 +130,7 @@ const PaymentsForm = ({ paymentsForm, setPaymentsForm, children }) => {
                 errors.flatFee ? "border-red-600  " : ""
               }`}
               type="text"
-              defaultValue={resturant?.activeResturant?.flatFee}
+              defaultValue={restaurant?.activeRestaurant?.flatFee}
               placeholder=""
               {...register("flatFee", {
                 required: "Flat Fee is required.",
@@ -161,7 +161,7 @@ const PaymentsForm = ({ paymentsForm, setPaymentsForm, children }) => {
                 errors.trialEndDate ? "border-red-600  " : ""
               }`}
               type="date"
-              defaultValue={resturant?.activeResturant?.trialEndDate}
+              defaultValue={restaurant?.activeRestaurant?.trialEndDate}
               placeholder=""
               {...register("trialEndDate", {
                 required: "Free Trial End Date is required.",
@@ -182,7 +182,7 @@ const PaymentsForm = ({ paymentsForm, setPaymentsForm, children }) => {
                 errors.processingFee ? "border-red-600  " : ""
               }`}
               type="text"
-              defaultValue={resturant?.activeResturant?.processingFee}
+              defaultValue={restaurant?.activeRestaurant?.processingFee}
               placeholder=""
               {...register("processingFee", {
                 required: " Processing Fee is required.",
@@ -213,7 +213,7 @@ const PaymentsForm = ({ paymentsForm, setPaymentsForm, children }) => {
                 errors.contactMethod ? "border-red-600  " : ""
               }`}
               type="text"
-              defaultValue={resturant?.activeResturant?.contactMethod}
+              defaultValue={restaurant?.activeRestaurant?.contactMethod}
               placeholder=""
               {...register("contactMethod", {
                 required: "Contact Method is required.",

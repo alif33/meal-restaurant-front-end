@@ -7,9 +7,9 @@ import { useSelector, useDispatch } from "react-redux";
 // import { useSelector } from "react-redux";
 // import Status from "../../../public/img/status-info-svgrepo-com 1.png";
 import {
-  activeResturant,
+  activeRestaurant,
   setRestaurant,
-} from "../store/resturant/actions";
+} from "../store/restaurant/actions";
 import { postData, updateData } from "../__lib__/helpers/HttpService";
 
 const RestaurantInfo = ({
@@ -40,7 +40,7 @@ const RestaurantInfo = ({
     setMobileSelectedFile(e.target.files[0]);
     setMobileCheckFile(true);
   };
-  const { admin, resturant } = useSelector((state) => state);
+  const { admin, restaurant } = useSelector((state) => state);
   const dispatch = useDispatch();
   const [images, setImages] = useState({
     shopLogo: "",
@@ -86,13 +86,13 @@ const RestaurantInfo = ({
   };
   const onSubmit = (data) => {
     updateData(
-      `/resturant?_id=${resturant?.activeResturant?._id}`,
+      `/resturant?_id=${restaurant?.activeRestaurant?._id}`,
       { ...data, ...images },
       admin?.token
     ).then((res) => {
       console.log("RestaurantInfo", res);
       if (res.success) {
-        dispatch(activeResturant(res.resturant));
+        dispatch(activeRestaurant(res.resturant));
         setRestaurantInfoForm(!restaurantInfoForm);
         reset();
       }
@@ -125,7 +125,7 @@ const RestaurantInfo = ({
               Shop Name:
             </label>
             <input
-              defaultValue={resturant?.activeResturant?.name}
+              defaultValue={restaurant?.activeRestaurant?.name}
               className="input w-full border-2 h-[40.85px] p-3 mt-2"
               type="text"
               placeholder="Shop name"
@@ -228,7 +228,7 @@ const RestaurantInfo = ({
                         ? "opacity-1"
                         : "opacity-0"
                     }`}
-                    defaultValue={resturant?.activeResturant?.mobileHeaderImage}
+                    defaultValue={restaurant?.activeRestaurant?.mobileHeaderImage}
                     src={
                       images.mobileHeaderImage.length > 0
                         ? images.mobileHeaderImage

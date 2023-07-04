@@ -5,12 +5,12 @@ import { AiOutlineCloseCircle } from "react-icons/ai";
 import { useSelector, useDispatch } from "react-redux";
 // import { useSelector } from "react-redux";
 // import Contact from "../../../public/img/contact-svgrepo-com 1 (1).png";
-import { activeResturant } from "../store/resturant/actions";
+import { activeRestaurant } from "../store/restaurant/actions";
 import { updateData } from "../__lib__/helpers/HttpService";
 import { toast } from "react-hot-toast";
 
 const ContactForm = ({ contactForm, setContactForm, children }) => {
-  const { admin, resturant } = useSelector((state) => state);
+  const { admin, restaurant } = useSelector((state) => state);
 
   const dispatch = useDispatch();
   const {
@@ -21,12 +21,12 @@ const ContactForm = ({ contactForm, setContactForm, children }) => {
   } = useForm();
   const onSubmit = (data) => {
     updateData(
-      `/restaurant?_id=${resturant?.activeResturant?._id}`,
+      `/restaurant?_id=${restaurant?.activeRestaurant?._id}`,
       data,
       admin?.token
     ).then((res) => {
       if (res.success) {
-        dispatch(activeResturant(res.restaurant));
+        dispatch(activeRestaurant(res.restaurant));
         setContactForm(!contactForm);
         toast.success(`${res.message}`);
       }
@@ -64,7 +64,7 @@ const ContactForm = ({ contactForm, setContactForm, children }) => {
                 errors.ownerName ? "border-red-600  " : ""
               }`}
               type="text"
-              defaultValue={resturant?.activeResturant?.ownerName}
+              defaultValue={restaurant?.activeRestaurant?.ownerName}
               placeholder=""
               {...register("ownerName", {
                 required: "Owner Name is required.",
@@ -87,7 +87,7 @@ const ContactForm = ({ contactForm, setContactForm, children }) => {
                 errors.ownerPhone ? "border-red-600  " : ""
               }`}
               type="text"
-              defaultValue={resturant?.activeResturant?.ownerPhone}
+              defaultValue={restaurant?.activeRestaurant?.ownerPhone}
               placeholder=""
               {...register("ownerPhone", {
                 required: "Owner Phone is required.",
@@ -120,7 +120,7 @@ const ContactForm = ({ contactForm, setContactForm, children }) => {
                 errors.ownerEmail ? "border-red-600  " : ""
               }`}
               type="text"
-              defaultValue={resturant?.activeResturant?.ownerEmail}
+              defaultValue={restaurant?.activeRestaurant?.ownerEmail}
               placeholder=""
               {...register("ownerEmail", {
                 required: "Owner Email is required.",
@@ -152,7 +152,7 @@ const ContactForm = ({ contactForm, setContactForm, children }) => {
                 errors.secCName ? "border-red-600  " : ""
               }`}
               type="text"
-              defaultValue={resturant?.activeResturant?.secCName}
+              defaultValue={restaurant?.activeRestaurant?.secCName}
               placeholder=""
               {...register("secCName", {
                 required: "Secondary Contact Name is required.",
@@ -175,7 +175,7 @@ const ContactForm = ({ contactForm, setContactForm, children }) => {
                 errors.secCPhone ? "border-red-600  " : ""
               }`}
               type="text"
-              defaultValue={resturant?.activeResturant?.secCPhone}
+              defaultValue={restaurant?.activeRestaurant?.secCPhone}
               placeholder=""
               {...register("secCPhone", {
                 required: "Secondary Contact Phone is required.",
@@ -208,7 +208,7 @@ const ContactForm = ({ contactForm, setContactForm, children }) => {
                 errors.secCEmail ? "border-red-600  " : ""
               }`}
               type="text"
-              defaultValue={resturant?.activeResturant?.secCEmail}
+              defaultValue={restaurant?.activeRestaurant?.secCEmail}
               placeholder=""
               {...register("secCEmail", {
                 required: "Secondary Contact Email is required.",
@@ -240,7 +240,7 @@ const ContactForm = ({ contactForm, setContactForm, children }) => {
                 errors.resturantPhone ? "border-red-600  " : ""
               }`}
               type="text"
-              defaultValue={resturant?.activeResturant?.resturantPhone}
+              defaultValue={restaurant?.activeRestaurant?.resturantPhone}
               placeholder=""
               {...register("resturantPhone", {
                 required: "Restaurant Phone is required.",

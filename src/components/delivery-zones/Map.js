@@ -43,7 +43,7 @@ function LocationMarker({ lat, lng }) {
 }
 
 export default function Map({ lat, lng }) {
-  const { resturant } = useSelector((state) => state);
+  const { restaurant } = useSelector((state) => state);
   return (
     <MapContainer center={[lat, lng]} zoom={13} scrollWheelZoom={false}>
       <TileLayer

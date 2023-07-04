@@ -5,7 +5,7 @@ import { authSlice } from "./auth/slice";
 // import { customerSlice } from "./customers/slice";
 // import { memberSlice } from "./members/slice";
 import { menuSlice } from "./menu/slice";
-import { resturantSlice } from "./resturant/slice";
+import { restaurantSlice } from "./restaurant/slice";
 // import { scheduleSlice } from "./schedule/slice";
 // import { shopSlice } from "./shop/slice";
 // import { scheduleSlice } from './shop/slice'
@@ -23,6 +23,6 @@ export const rootReducer = combineReducers({
   //shop reducer
   // shop: shopSlice.reducer,
   // schedule: scheduleSlice.reducer,
-  resturant: resturantSlice.reducer,
+  restaurant: restaurantSlice.reducer,
   menu: menuSlice.reducer
 });

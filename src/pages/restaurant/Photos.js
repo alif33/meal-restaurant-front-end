@@ -12,7 +12,7 @@ import {
     postData 
 } from "../../__lib__/helpers/HttpService";
 import { useSelector, useDispatch } from "react-redux";
-import { setPhotos } from "../../store/resturant/actions";
+import { setPhotos } from "../../store/restaurant/actions";
 
 const RestaurantPhotos = () => {
   const {
@@ -24,13 +24,13 @@ const RestaurantPhotos = () => {
   const [tapList, setTapList] = useState(true);
   const [addUserForm, setAddUserForm] = useState(false);
   const [image, setImage] = useState();
-  const { resturant, auth } = useSelector(state=>state);
+  const { restaurant, auth } = useSelector(state=>state);
   const dispatch = useDispatch();
 
 
   useEffect(()=>{
     dispatch(setPhotos(
-      resturant?.activeResturant?._id,
+      restaurant?.activeRestaurant?._id,
       auth.token
     ))
   }, [])
@@ -59,7 +59,7 @@ const RestaurantPhotos = () => {
       .then(res=>{
         if(res.success){
           dispatch(setPhotos(
-            resturant?.activeResturant?._id,
+            restaurant?.activeRestaurant?._id,
             auth.token
           ));
           toast.success(`${res.message}`);
@@ -70,7 +70,7 @@ const RestaurantPhotos = () => {
   const onError = (err) => console.log(err);
 
   const onSubmit = (data) => {
-      authPost(`/restaurant/photo?resturant=${ resturant?.activeResturant?._id }&type=PHOTO`,
+      authPost(`/restaurant/photo?resturant=${ restaurant?.activeRestaurant?._id }&type=PHOTO`,
       {...data,
         uri: image,
         tags: data.tags.split(" "),
@@ -80,7 +80,7 @@ const RestaurantPhotos = () => {
     ).then(res=>{
       if(res.success){
         dispatch(setPhotos(
-          resturant?.activeResturant?._id,
+          restaurant?.activeRestaurant?._id,
           auth.token
         ));
         toast.success(`${res.message}`);
@@ -93,7 +93,7 @@ const RestaurantPhotos = () => {
       <div className="w-11/12 mx-auto mt-4">
         <div className="flex justify-between items-center ">
           <h1 className=" text-[#212121] text-[26px] font-mono ">
-            Statements - { resturant?.activeResturant?.name }
+            Statements - { restaurant?.activeRestaurant?.name }
           </h1>
           <div className="">
             <button
@@ -135,9 +135,9 @@ const RestaurantPhotos = () => {
           <>
             <div className="grid grid-cols-3 mt-7 ">
               {
-                resturant?.photos && 
-                Array.isArray(resturant?.photos) &&
-                resturant.photos.map((photo, index)=>(
+                restaurant?.photos && 
+                Array.isArray(restaurant?.photos) &&
+                restaurant.photos.map((photo, index)=>(
                   <div key={ index } className="bg-white relative mr-5">
                     <div className="card-img w-full h-[300px]  ">
                       <img

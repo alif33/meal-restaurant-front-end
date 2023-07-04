@@ -7,7 +7,7 @@ import { AiOutlineCloseCircle } from "react-icons/ai";
 import RestaurantSearchBar from "../../components/resturants/RestaurantSearchBar";
 import UserTablePagination from "../../components/UserTablePagination";
 import RestaurantTable from "../../components/RestaurantTable";
-import { setRestaurant } from "../../store/resturant/actions";
+import { setRestaurant } from "../../store/restaurant/actions";
 import {
   authPost,
   postData,

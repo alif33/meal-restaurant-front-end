@@ -13,25 +13,25 @@ import CardWidgetWithTitle from "../../components/CardWidgetWithTitle";
 import { useSelector } from "react-redux";
 
 const Dashboard = () => {
-  const { admin, resturant } = useSelector((state) => state);
-  const { activeResturant } = resturant;
-  console.log("ReatauarantDashboardPage", resturant?.activeResturant?.name);
+  const { admin, restaurant } = useSelector((state) => state);
+  const { activeRestaurant } = restaurant;
+  console.log("ReatauarantDashboardPage", restaurant?.activeRestaurant?.name);
 
 
   return (
     <Layout status="restaurant">
       <div className="w-[97%] mx-auto mt-4">
         <h3 className="text-2xl font-mono font-medium ">
-          Dashboard - {resturant?.activeResturant?.name}
+          Dashboard - {restaurant?.activeRestaurant?.name}
         </h3>
         <div className="mt-3 grid grid-cols-[38%_29%_29%] gap-[1.5%] ">
           <div className="">
             <CardWidgetWithTitle>
               <div className="grid grid-cols-[79%_19%] gap-[2%] py-4 px-5 ">
                 <div className="">
-                  <h2 className="text-lg"># {activeResturant?.name}</h2>
-                  <h2 className="text-lg">{activeResturant?.city} {activeResturant?.country}</h2>
-                  <h2 className="text-lg">Account Manager: {activeResturant?.accountManager}</h2>
+                  <h2 className="text-lg"># {activeRestaurant?.name}</h2>
+                  <h2 className="text-lg">{activeRestaurant?.city} {activeRestaurant?.country}</h2>
+                  <h2 className="text-lg">Account Manager: {activeRestaurant?.accountManager}</h2>
                 </div>
                 <div className="">
                   <svg
@@ -60,19 +60,19 @@ const Dashboard = () => {
                   <li className=" grid grid-cols-2 items-center mb-4">
                     <p className=" text-sm text-[#717171] ">Owner Name:</p>
                     <p className="text-md ">
-                      {activeResturant?.ownerName}
+                      {activeRestaurant?.ownerName}
                     </p>
                   </li>
                   <li className=" grid grid-cols-2 items-center mb-4">
                     <p className=" text-sm text-[#717171] ">Owner Cell:</p>
                     <p className="text-md ">
-                      {activeResturant?.ownerPhone}
+                      {activeRestaurant?.ownerPhone}
                     </p>
                   </li>
                   <li className=" grid grid-cols-2 items-center mb-4">
                     <p className=" text-sm text-[#717171] ">Owners Email:</p>
                     <p className="text-md ">
-                      {resturant?.activeResturant?.ownerEmail}
+                      {restaurant?.activeRestaurant?.ownerEmail}
                     </p>
                   </li>
                   <li className=" grid grid-cols-2 items-center mb-4">
@@ -243,7 +243,7 @@ const Dashboard = () => {
                       Frequency Payment:{" "}
                     </p>
                     <p className="text-md ">
-                      {resturant?.activeResturant?.paymentFrequency}
+                      {restaurant?.activeRestaurant?.paymentFrequency}
                     </p>
                   </li>
                   <li className=" grid grid-cols-2 items-center pb-[7px]">
@@ -269,7 +269,7 @@ const Dashboard = () => {
                   <li className=" grid grid-cols-2 items-center pb-[7px]">
                     <p className=" text-sm text-[#717171] ">GMB Status: </p>
                     <p className="text-md ">
-                      {resturant?.activeResturant?.gbmStatus}{" "}
+                      {restaurant?.activeRestaurant?.gbmStatus}{" "}
                       <span>
                         <img
                           height="15.83"
@@ -283,19 +283,19 @@ const Dashboard = () => {
                   <li className=" grid grid-cols-2 items-center pb-[7px]">
                     <p className=" text-sm text-[#717171] ">GMB Owner: </p>
                     <p className="text-md ">
-                      {resturant?.activeResturant?.gbmOwner}
+                      {restaurant?.activeRestaurant?.gbmOwner}
                     </p>
                   </li>
                   <li className=" grid grid-cols-2 items-center pb-[7px]">
                     <p className=" text-sm text-[#717171] ">GMB Email: </p>
                     <p className="text-md ">
-                      {resturant?.activeResturant?.gbmEmail}
+                      {restaurant?.activeRestaurant?.gbmEmail}
                     </p>
                   </li>
                   <li className=" grid grid-cols-2 items-center pb-[7px]">
                     <p className=" text-sm text-[#717171] ">Domain: </p>
                     <p className="text-md ">
-                      {resturant?.activeResturant?.mealDomain}
+                      {restaurant?.activeRestaurant?.mealDomain}
                     </p>
                   </li>
                 </ul>

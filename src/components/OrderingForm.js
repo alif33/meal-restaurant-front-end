@@ -3,11 +3,11 @@ import { useForm } from "react-hook-form";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { useSelector, useDispatch } from "react-redux";
 import { updateData } from "../__lib__/helpers/HttpService";
-import { activeResturant } from "../store/resturant/actions";
+import { activeRestaurant } from "../store/restaurant/actions";
 import { toast } from "react-hot-toast";
 
 const OrderingForm = ({ orderingForm, setOrderingForm }) => {
-  const { admin, resturant } = useSelector((state) => state);
+  const { admin, restaurant } = useSelector((state) => state);
 
   const dispatch = useDispatch();
   const {
@@ -17,12 +17,12 @@ const OrderingForm = ({ orderingForm, setOrderingForm }) => {
   } = useForm();
   const onSubmit = (data) => {
     updateData(
-      `/restaurant?_id=${resturant?.activeResturant?._id}`,
+      `/restaurant?_id=${restaurant?.activeRestaurant?._id}`,
       data,
       admin?.token
     ).then((res) => {
       if (res.success) {
-        dispatch(activeResturant(res.restaurant));
+        dispatch(activeRestaurant(res.restaurant));
         setOrderingForm(!orderingForm);
         toast.success(`${res.message}`)
       }
@@ -59,7 +59,7 @@ const OrderingForm = ({ orderingForm, setOrderingForm }) => {
                 errors?.minPickupOrder ? "border-red-600  " : ""
               }`}
               type="text"
-              defaultValue={resturant?.activeResturant?.minPickupOrder}
+              defaultValue={restaurant?.activeRestaurant?.minPickupOrder}
               placeholder=""
               {...register("minPickupOrder", {
                 required: "Min. pickup order is required.",
@@ -92,7 +92,7 @@ const OrderingForm = ({ orderingForm, setOrderingForm }) => {
                 errors?.minDeliveryOrder ? "border-red-600  " : ""
               }`}
               type="text"
-              defaultValue={resturant?.activeResturant?.minDeliveryOrder}
+              defaultValue={restaurant?.activeRestaurant?.minDeliveryOrder}
               placeholder=""
               {...register("minDeliveryOrder", {
                 required: "Min. delivery order is required.",
@@ -125,7 +125,7 @@ const OrderingForm = ({ orderingForm, setOrderingForm }) => {
                 errors?.pickupEstimate ? "border-red-600  " : ""
               }`}
               type="text"
-              defaultValue={resturant?.activeResturant?.pickupEstimate}
+              defaultValue={restaurant?.activeRestaurant?.pickupEstimate}
               placeholder=""
               {...register("pickupEstimate", {
                 required: "Pick up estimate is required.",
@@ -158,7 +158,7 @@ const OrderingForm = ({ orderingForm, setOrderingForm }) => {
                 errors?.deliveryEstimate ? "border-red-600  " : ""
               }`}
               type="text"
-              defaultValue={resturant?.activeResturant?.deliveryEstimate}
+              defaultValue={restaurant?.activeRestaurant?.deliveryEstimate}
               placeholder=""
               {...register("deliveryEstimate", {
                 required: "Delivery estimate is required.",
@@ -191,7 +191,7 @@ const OrderingForm = ({ orderingForm, setOrderingForm }) => {
                 errors?.onlineDiscount ? "border-red-600  " : ""
               }`}
               type="text"
-              defaultValue={resturant?.activeResturant?.onlineDiscount}
+              defaultValue={restaurant?.activeRestaurant?.onlineDiscount}
               placeholder=""
               {...register("onlineDiscount", {
                 required: "Online Discount is required.",
@@ -224,7 +224,7 @@ const OrderingForm = ({ orderingForm, setOrderingForm }) => {
               className={`input w-full border-2 text-xs h-[40.85px] p-3   ${
                 errors?.deliveryMethod ? "border-red-600  " : ""
               }`}
-              defaultValue={resturant?.activeResturant?.delivery}
+              defaultValue={restaurant?.activeRestaurant?.delivery}
               {...register("delivery", {
                 required: "Delivery is required.",
               })}
@@ -254,7 +254,7 @@ const OrderingForm = ({ orderingForm, setOrderingForm }) => {
               className={`input w-full border-2 text-xs h-[40.85px] p-3   ${
                 errors?.scheduledOrders ? "border-red-600  " : ""
               }`}
-              defaultValue={resturant?.activeResturant?.scheduledOrders}
+              defaultValue={restaurant?.activeRestaurant?.scheduledOrders}
               {...register("scheduledOrders", {
                 required: "Scheduled orders is required.",
               })}
@@ -279,7 +279,7 @@ const OrderingForm = ({ orderingForm, setOrderingForm }) => {
               className={`input w-full border-2 text-xs h-[40.85px] p-3   ${
                 errors?.ordersToday ? "border-red-600  " : ""
               }`}
-              defaultValue={resturant?.activeResturant?.ordersToday}
+              defaultValue={restaurant?.activeRestaurant?.ordersToday}
               {...register("ordersToday", {
                 required: "Orders today is required.",
               })}

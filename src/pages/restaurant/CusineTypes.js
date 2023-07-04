@@ -6,7 +6,7 @@ import AddUserForm from "../../components/AddUserForm";
 import { authPost, deleteData } from "../../__lib__/helpers/HttpService";
 import { useSelector, useDispatch } from "react-redux";
 import toast from "react-hot-toast";
-import { setCousines } from "../../store/resturant/actions";
+import { setCousines } from "../../store/restaurant/actions";
 
 const CusineTypes = () => {
   const {
@@ -18,12 +18,12 @@ const CusineTypes = () => {
 
   const [cousins, setCousins] = useState();
   const [addUserForm, setAddUserForm] = useState(false);
-  const { resturant, auth } = useSelector(state=>state);
+  const { restaurant, auth } = useSelector(state=>state);
   const dispatch = useDispatch();
 
   useEffect(()=>{
     dispatch(setCousines(
-      resturant?.activeResturant?._id, 
+      restaurant?.activeRestaurant?._id, 
       auth?.token
     ))
   },[])
@@ -31,13 +31,13 @@ const CusineTypes = () => {
   const onError = (err) => console.log(err);
   const onSubmit = (data) => {
     authPost(
-      `/restaurant/cuisine-type?_id=${resturant?.activeResturant?._id}`,
+      `/restaurant/cuisine-type?_id=${restaurant?.activeRestaurant?._id}`,
       data,
       auth?.token
     ).then((res) => {
       if (res.success) {
         dispatch(setCousines(
-          resturant?.activeResturant?._id, 
+          restaurant?.activeRestaurant?._id, 
           auth?.token
         ))
         toast.success(`${res.message}`);
@@ -55,7 +55,7 @@ const CusineTypes = () => {
       console.log(res);
       if(res.success){
         dispatch(setCousines(
-          resturant?.activeResturant?._id, 
+          restaurant?.activeRestaurant?._id, 
           auth?.token
         ))
         toast.success(`${res.message}`);
@@ -71,7 +71,7 @@ const CusineTypes = () => {
       <div className="w-11/12 mx-auto mt-4">
         <div className="flex justify-between items-center border-b-2 pb-[48px]">
           <h1 className="text-[26px] font-light">
-            Cusine Types - {resturant?.activeResturant?.name}
+            Cusine Types - {restaurant?.activeRestaurant?.name}
           </h1>
           <button
             onClick={() => setAddUserForm(!addUserForm)}
@@ -81,9 +81,9 @@ const CusineTypes = () => {
           </button>
         </div>
         <div className="pt-[42px]">
-          {resturant?.cousines &&
-            Array.isArray(resturant?.cousines) &&
-              resturant?.cousines.map((cusine, index) => (
+          {restaurant?.cousines &&
+            Array.isArray(restaurant?.cousines) &&
+              restaurant?.cousines.map((cusine, index) => (
                 <div
                   key={index}
                   className="w-[364px] h-[60px] shadow-md bg-white mb-[30px]"

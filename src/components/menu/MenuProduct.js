@@ -24,7 +24,7 @@ const MenuProduct = ({ productModal, setProductModal }) => {
 
   const dispatch = useDispatch();
 
-  const { resturant, menu, auth } = useSelector((state) => state);
+  const { restaurant, menu, auth } = useSelector((state) => state);
   const {
     register,
     reset,
@@ -72,13 +72,13 @@ const MenuProduct = ({ productModal, setProductModal }) => {
         options,
         types,
         addons,
-        resturant: resturant.activeResturant?._id,
+        resturant: restaurant.activeRestaurant?._id,
       },
       auth.token
     ).then((res) => {
 
       if (res.success) {
-        dispatch(setCategories(resturant.activeResturant?._id));
+        dispatch(setCategories(restaurant.activeRestaurant?._id));
         toast.success(`${res.message}`);
         setProductModal(!productModal);
       }
@@ -162,7 +162,7 @@ const MenuProduct = ({ productModal, setProductModal }) => {
         <div className="flex justify-between items-center mt-[38px]">
           <div>
             <h1 className="font-light text-[28px]">
-              Menu - {resturant?.activeResturant?.name}{" "}
+              Menu - {restaurant?.activeRestaurant?.name}{" "}
             </h1>
             <label
               htmlFor=""

@@ -9,7 +9,7 @@ import { showErr } from "../../__lib__/helpers/ErrHandler";
 import {
   activeDeliveryZones,
   setDeliveryZones,
-} from "../../store/resturant/actions";
+} from "../../store/restaurant/actions";
 
 import AddedMap from "../../components/delivery-zones/AddedMap"
 
@@ -24,23 +24,23 @@ const DeliveryZonesForm = ({ addUserForm, setAddUserForm }) => {
   const [lng, setLng] = useState(-75.7);
 
   const dispatch = useDispatch();
-  const { admin, resturant } = useSelector((state) => state);
+  const { admin, restaurant } = useSelector((state) => state);
 
   useEffect(() => {
-    dispatch(setDeliveryZones(resturant?.activeResturant?._id, admin?.token));
+    dispatch(setDeliveryZones(restaurant?.activeRestaurant?._id, admin?.token));
   }, []);
 
   const onError = (err) => showErr(err);
 
   const onSubmit = (data) => {
     authPost(
-      `/restaurant/delivery-zone?_rid=${resturant?.activeResturant?._id}`,
+      `/restaurant/delivery-zone?_rid=${restaurant?.activeRestaurant?._id}`,
       { ...data, lat, lng },
       admin?.token
     ).then((res) => {
       if (res.success) {
         dispatch(
-          setDeliveryZones(resturant?.activeResturant?._id, admin?.token)
+          setDeliveryZones(restaurant?.activeRestaurant?._id, admin?.token)
         );
         toast.success(`${res.message}`);
         reset();

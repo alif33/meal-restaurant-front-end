@@ -9,7 +9,7 @@ import { authPost, postData } from "../../__lib__/helpers/HttpService";
 import {
   activeDeliveryZones,
   setDeliveryZones,
-} from "../../store/resturant/actions";
+} from "../../store/restaurant/actions";
 import DeliveryZonesForm from "../../components/delivery-zones/DeliveryZonesForm";
 import DeliveryZonesEditForm from "../../components/delivery-zones/DeliveryZonesEditForm";
 import Map from "../../components/delivery-zones/Map";
@@ -32,23 +32,23 @@ const RestaurantDeliveryZones = () => {
   const [deliveryZonesData, setDeliveryZonesData] = useState();
   const [deliveryZonesEditFormNumber, setDeliveryZonesEditFormNumber] = useState(null);
   const dispatch = useDispatch();
-  const { admin, resturant } = useSelector((state) => state);
+  const { admin, restaurant } = useSelector((state) => state);
 
   useEffect(() => {
-    dispatch(setDeliveryZones(resturant?.activeResturant?._id, admin?.token));
+    dispatch(setDeliveryZones(restaurant?.activeRestaurant?._id, admin?.token));
   }, []);
 
   const onError = (err) => console.log(err);
 
   const onSubmit = (data) => {
     authPost(
-      `/restaurant/delivery-zone?_rid=${resturant?.activeResturant?._id}`,
+      `/restaurant/delivery-zone?_rid=${restaurant?.activeRestaurant?._id}`,
       data,
       admin?.token
     ).then((res) => {
       if (res.success) {
         dispatch(
-          setDeliveryZones(resturant?.activeResturant?._id, admin?.token)
+          setDeliveryZones(restaurant?.activeRestaurant?._id, admin?.token)
         );
         toast.success(`${res.message}`);
         reset();
@@ -71,15 +71,13 @@ const RestaurantDeliveryZones = () => {
     // console.log("Latitude is AddMap :", position?.coords.latitude);
     // console.log("Longitude is AddMap :", position?.coords.longitude);
   });
-  console.log("resturant-delivery-zones", resturant?.deliveryZones);
-  console.log("resturant-delivery-zones-map", currentLat, currentLng);
-  // console.log("mylocation", window.navigator.geolocation.watchPosition);
+
   return (
-    <Layout status="restaurant" _resturant={true}>
+    <Layout status="restaurant" __resturant__={true}>
       <div className="w-11/12 mx-auto mt-4">
         <div className="flex justify-between items-center  border-b border-solid border-[#c7c7c7] pb-4 ">
           <h1 className=" text-[#212121] text-[26px] font-mono ">
-            Delivery Zones - { resturant?.activeResturant?.name }
+            Delivery Zones - { restaurant?.activeRestaurant?.name }
           </h1>
           <div className="">
             <button
@@ -92,8 +90,8 @@ const RestaurantDeliveryZones = () => {
         </div>
         <div className="mt-3 grid grid-cols-2 gap-4 ">
           <div className="">
-            {Array.isArray(resturant?.deliveryZones) &&
-              resturant?.deliveryZones.map((deliveryZone, index) => (
+            {Array.isArray(restaurant?.deliveryZones) &&
+              restaurant?.deliveryZones.map((deliveryZone, index) => (
                 <div
                   key={index}
                   onClick={() =>

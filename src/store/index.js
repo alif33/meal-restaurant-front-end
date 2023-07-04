@@ -6,7 +6,7 @@ import { rootReducer } from "./reducers";
 
 const persistConfig = {
   key: "root",
-  whitelist: ["auth"],
+  whitelist: ["auth", "restaurant"],
   storage,
   stateReconciler: autoMergeLevel2,
 };
