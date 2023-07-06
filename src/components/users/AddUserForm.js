@@ -3,8 +3,6 @@ import React from "react";
 const AddUserForm = ({
   addUserForm,
   setAddUserForm,
-  setStatusForm,
-  statusForm,
   children,
 }) => {
   return (

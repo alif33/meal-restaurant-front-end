@@ -56,7 +56,7 @@ const ForgetPassword = () => {
               MealNow Admin
             </h4>
   
-            <div className=" my-6 border  border-solid border-[#E1E1E1] relative  ">
+            <div className="mt-6 border  border-solid border-[#E1E1E1] relative  ">
               <label
                 htmlFor="password"
                 className="text-sm absolute bg-white -top-2 left-4 "

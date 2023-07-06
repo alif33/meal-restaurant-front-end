@@ -1,7 +1,34 @@
 import React from "react";
+import { AiFillEdit } from "react-icons/ai";
+import { RiDeleteBin6Line } from "react-icons/ri";
 import { toNormalizeDate } from "../../__lib__/helpers/Formatter";
+import { deleteData } from "../../__lib__/helpers/HttpService";
+import { useSelector } from "react-redux";
+import { toast } from "react-hot-toast";
 
-const DashboardTableListItem = ({ user }) => {
+const DashboardTableListItem = ({ user, fetchUsers, hasUpdate, setHasUpdate, updateUser, setUpdateUser }) => {
+  const { auth } =useSelector(state=>state)
+
+  const handleUpdate = _id =>{
+    setHasUpdate(true)
+    setUpdateUser(_id)
+  }
+
+  const handleDelete = _id =>{
+    deleteData(`/user?_id=${_id}`, auth.token)
+    .then(
+      res=>{
+        if(res.success){
+          toast.success(`${res.message}`);
+          fetchUsers();
+        }
+      }
+    )
+    .catch(err=>{
+      console.log(err);
+    })
+  }
+
   return (
     <tr className="bg-white text-center border-y-4 border-slate-100">
       <td className="py-6 text-sm">{ user?.userName }</td>
@@ -19,12 +46,20 @@ const DashboardTableListItem = ({ user }) => {
               : `bg-[#B34027] border-[#B34027]`
           } `}
         >
-          {/* {false ? "Active" : "DEACTIVATED"} */}
           { user?.status }
         </button>
       </td>
-      <td className="py-6 pr-2 text-sm">
-        <input type="checkbox"></input>
+      <td className="py-6 pr-2 text-sm flex items-center mt-2">
+        <AiFillEdit
+           size={20}
+           className="cursor-pointer text-green-500 mx-1"
+           onClick={()=>handleUpdate(user._id)}
+        />
+        <RiDeleteBin6Line
+          size={20}
+          className="cursor-pointer text-red-500 mx-1"
+          onClick={()=>handleDelete(user._id)}
+        />
       </td>
     </tr>
   );

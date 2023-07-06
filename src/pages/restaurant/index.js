@@ -3,16 +3,19 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useSelector, useDispatch } from "react-redux";
 import Layout from "../../base/Layout";
+import ReactPaginate from 'react-paginate';
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import RestaurantSearchBar from "../../components/resturants/RestaurantSearchBar";
 import UserTablePagination from "../../components/UserTablePagination";
+import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 import RestaurantTable from "../../components/RestaurantTable";
 import { setRestaurant } from "../../store/restaurant/actions";
+import SyncLoader from "react-spinners/SyncLoader";
 import {
   authPost,
-  postData,
-  _getData,
+  postData
 } from "../../__lib__/helpers/HttpService";
+import { override } from "../../__lib__/config";
 
 const RestaurantPage = () => {
 
@@ -23,8 +26,11 @@ const RestaurantPage = () => {
     formState: { errors },
   } = useForm();
   const [addUserForm, setAddUserForm] = useState(false);
+  const [hasRestaurants, setHasRestaurants] = useState(false);
   const [shopSelectedFile, setShopSelectedFile] = useState();
   const [shopCheckFile, setShopCheckFile] = useState(false);
+  const [restaurantOffset, setRestaurantOffset] = useState(0);
+
   const [mobileSelectedFile, setMobileSelectedFile] = useState();
   const [mobileCheckFile, setMobileCheckFile] = useState(false);
   const [webCheckFile, setWebCheckFile] = useState(false);
@@ -36,8 +42,19 @@ const RestaurantPage = () => {
     mobileHeaderImage: "",
   });
 
-  const { auth } = useSelector((state) => state);
+  const { auth, restaurant } = useSelector((state) => state);
   const dispatch = useDispatch();
+
+  const usersPerPage = 2; 
+
+  const endOffset = restaurantOffset + usersPerPage;
+  const currentRestaurants = restaurant?.restaurantList? restaurant?.restaurantList?.slice(restaurantOffset, endOffset): null;
+  const pageCount = restaurant?.restaurantList? Math.ceil(restaurant?.restaurantList.length / usersPerPage): null;
+
+  const handlePageClick = (event) => {
+    const newOffset = (event.selected * usersPerPage) % restaurant?.restaurantList?.length;
+    setRestaurantOffset(newOffset);
+  };
 
   useEffect(() => {
     dispatch(setRestaurant(auth.token));
@@ -88,10 +105,13 @@ const RestaurantPage = () => {
     });
   };
 
+  console.log(restaurant, "RST");
 
   return (
     <Layout status="restaurant">
-      <div className="w-11/12 mx-auto mt-4">
+      {
+        !restaurant?.restaurantList ? <SyncLoader cssOverride={override} color="#36d7b7" />: <>
+                <div className="w-11/12 mx-auto mt-4">
         <RestaurantSearchBar
           addUserForm={addUserForm}
           setAddUserForm={setAddUserForm}
@@ -99,12 +119,32 @@ const RestaurantPage = () => {
 
         <div className="mt-3">
           <RestaurantTable
-            addUserForm={addUserForm}
-            setAddUserForm={setAddUserForm}
+            restaurants={ currentRestaurants }
           />
         </div>
         <div className="flex justify-center items-center">
-          <UserTablePagination />
+          <ReactPaginate
+            breakLabel="..."
+            nextLabel={<button className="w-8 h-8 text-3xl flex justify-center items-center bg-[#6FB327] border border-solid border-[#6FB327] text-white rounded-full">
+              <MdKeyboardArrowRight/>
+            </button>}
+            onPageChange={handlePageClick}
+            pageRangeDisplayed={5}
+            pageCount={pageCount}
+            previousLabel={
+              <button className="w-8 h-8 text-3xl flex justify-center items-center bg-[#6FB327] border border-solid border-[#6FB327] text-white rounded-full">
+              <MdKeyboardArrowLeft />
+            </button>
+            }
+            renderOnZeroPageCount={null}
+            containerClassName="flex justify-between items-center mt-5"
+            pageClassName="border border-solid text-[#858585] rounded-full mx-1"
+            previousClassName="mr-2"
+            nextClassName="ml-2"
+            pageLinkClassName="w-8 h-8 text-md flex justify-center items-center bg-transparent border border-solid  text-[#858585] rounded-full"
+            activeClassName="border-[#00c220]"
+            disabledClassName="opacity-50 cursor-not-allowed"
+          />
         </div>
       </div>
       <div>
@@ -128,13 +168,14 @@ const RestaurantPage = () => {
 
               <form className="" onSubmit={handleSubmit(onSubmit)}>
                 <div>
-                  <label className="w-full" htmlFor="">
+                  <label className="w-full" htmlFor="shopName">
                     Shop Name:
                   </label>
                   <input
-                    className="input w-full border-2 h-[40.85px] p-3 mt-2"
+                    id="shopName"
                     type="text"
                     placeholder="Shop name"
+                    className="input w-full border-2 h-[40.85px] p-3 mt-2"
                     {...register("name", {
                       required: "Shop Name is required.",
                     })}
@@ -277,6 +318,10 @@ const RestaurantPage = () => {
           </div>
         )}
       </div>
+        
+        </>     
+      }
+
     </Layout>
   );
 };

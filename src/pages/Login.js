@@ -69,7 +69,7 @@ const Login = () => {
               MealNow Admin
             </h4>
   
-            <div className=" my-6 border  border-solid border-[#E1E1E1] relative  ">
+            <div className=" mt-6 border  border-solid border-[#E1E1E1] relative  ">
               <label
                 htmlFor="email"
                 className="text-sm absolute bg-white -top-2 left-4 "
@@ -83,7 +83,7 @@ const Login = () => {
                 {...register("email", {
                   required: {
                     value: true,
-                    message: "Enter Your Email",
+                    message: "Email required",
                   },
                   pattern: {
                     value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/,
@@ -106,7 +106,7 @@ const Login = () => {
                 )}
               </label>
             </div>
-            <div className=" my-6 border  border-solid border-[#E1E1E1] relative  ">
+            <div className=" mt-6 border  border-solid border-[#E1E1E1] relative  ">
               <label
                 htmlFor="password"
                 className="text-sm absolute bg-white -top-2 left-4 "
@@ -120,7 +120,7 @@ const Login = () => {
                 {...register("password", {
                   required: {
                     value: true,
-                    message: "Enter Your Password",
+                    message: "Password required",
                   },
                 })}
               />

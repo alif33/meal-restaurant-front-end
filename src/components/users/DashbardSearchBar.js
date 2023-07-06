@@ -30,10 +30,7 @@ const DashbardSearchBar = ({ handleOrder, handleSerch, setAddUserForm }) => {
           onClick={() => setAddUserForm(true)}
           className="bg-[#00c220] border border-solid border-[#00c220] rounded-3xl flex justify-between items-center text-white py-2 px-4 text-sm font-mono hover:bg-transparent hover:text-black transition-all duration-300 ease-in-out   "
         >
-          ADD NEW <MdKeyboardArrowDown />
-        </button>
-        <button className="bg-[#00c220] border border-solid border-[#00c220] rounded-3xl flex justify-between items-center text-white py-2 px-4 text-sm font-mono hover:bg-transparent hover:text-black transition-all duration-300 ease-in-out ml-4  ">
-          ADD <MdKeyboardArrowDown />
+          ADD NEW
         </button>
       </div>
     </div>
