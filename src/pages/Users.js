@@ -375,7 +375,12 @@ const Users = () => {
 
           {hasUpdate && (
             <AddUserForm addUserForm={hasUpdate} setAddUserForm={setHasUpdate}>
-              <EditUserForm hasUpdate={hasUpdate} setHasUpdate={setHasUpdate} />
+              <EditUserForm 
+                users={users}
+                hasUpdate={hasUpdate} 
+                updateUser={updateUser}
+                setHasUpdate={setHasUpdate} 
+              />
             </AddUserForm>
           )}
         </>

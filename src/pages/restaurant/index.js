@@ -6,11 +6,11 @@ import Layout from "../../base/Layout";
 import ReactPaginate from 'react-paginate';
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import RestaurantSearchBar from "../../components/resturants/RestaurantSearchBar";
-import UserTablePagination from "../../components/UserTablePagination";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 import RestaurantTable from "../../components/RestaurantTable";
 import { setRestaurant } from "../../store/restaurant/actions";
 import SyncLoader from "react-spinners/SyncLoader";
+
 import {
   authPost,
   postData
@@ -105,8 +105,7 @@ const RestaurantPage = () => {
     });
   };
 
-  console.log(restaurant, "RST");
-
+  
   return (
     <Layout status="restaurant">
       {

@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AiOutlineCloseCircle } from "react-icons/ai";
-import { authPost, postData } from "../../__lib__/helpers/HttpService";
+import { _getData, authPost, postData, updateData } from "../../__lib__/helpers/HttpService";
 import { useSelector } from "react-redux";
 import { toast } from "react-hot-toast";
 import { useForm } from "react-hook-form";
@@ -8,10 +8,13 @@ import { userFields } from "../../__lib__/config";
 
 
 const EditUserForm = ({
+    users,
     hasUpdate,
+    updateUser,
     setHasUpdate,
     fetchUsers
 })=>{
+
     const [loading, setLoading] = useState();
     const [image, setImage] = useState();
     const [progress, setProgress] = useState(0);
@@ -20,12 +23,32 @@ const EditUserForm = ({
     const { auth } = useSelector(state=>state);
 
     const {
-        register,
-        reset,
-        handleSubmit,
-        formState: { errors },
-      } = useForm();
+      register,
+      reset,
+      setValue,
+      handleSubmit,
+      formState: { errors },
+    } = useForm();
 
+    const fetchRoles = ()=>{
+      _getData("/roles", auth?.token)
+      .then((res) => {
+        if(res.roles) setRoles(res.roles)
+      });
+    }
+
+    useEffect(()=>{
+      fetchRoles()
+      const __user = users.find(usr=>usr._id===updateUser)
+      if(!__user) return null
+      setValue("userName", __user.userName)
+      // setValue("password", __user.password)
+      setValue("email", __user.email)
+      setValue("name", __user.name)
+      setValue("team", __user.team)
+      setValue("phone", __user.phone)
+      setValue("status", __user.status)
+    }, [])
 
 
     const ImageHandler = (file) => {
@@ -47,37 +70,39 @@ const EditUserForm = ({
     };
 
     const onError = (err) =>{
-        let hadShown = false;
-    
-        userFields.map(name=>{
-          if(!hadShown && err?.[`${name}`]){
-            const msg = err?.[`${name}`].message;
-            toast.error(`${msg}`);
-            hadShown = true
-          }
-        })
-      } 
+      let hadShown = false;
+  
+      userFields.map(name=>{
+        if(!hadShown && err?.[`${name}`]){
+          const msg = err?.[`${name}`].message;
+          toast.error(`${msg}`);
+          hadShown = true
+        }
+      })
+    } 
 
 
     const onSubmit = (data) => {
-        setLoading(true);
-    
-        authPost("/user/register", { 
-          ...data,
-        //   image
-        }, auth?.token)
-        .then((res) => {
+      // setLoading(true);
+
+      updateData("/user", { 
+        ...data,
+      //   image
+      }, auth?.token)
+      .then((res) => {
+        if(res.success){
           setLoading(false);
           fetchUsers();
           toast.success(`${res.message}`);
           reset();
           setHasUpdate(!hasUpdate);
-        })
-        .catch(err=>{
-          setLoading(false);
-          console.log(err)
-        })
-      };
+        }       
+      })
+      .catch(err=>{
+        setLoading(false);
+        console.log(err)
+      })
+    };
     
     return(
         <>
@@ -108,7 +133,7 @@ const EditUserForm = ({
                       })}
                     />
                   </div>
-                  <div className="my-4">
+                  {/* <div className="my-4">
                     <label
                       htmlFor="password"
                       className=" text-[#757575] capitalize  "
@@ -123,7 +148,7 @@ const EditUserForm = ({
                         required: "Password required.",
                       })}
                     />
-                  </div>
+                  </div> */}
                   <div className="my-4">
                     <label htmlFor="email" className=" text-[#757575] capitalize  ">
                       Email
@@ -230,7 +255,7 @@ const EditUserForm = ({
                     disabled={loading}
                     className={`${loading && "pointer-events-none bg-gray-300 text-gray-500 hover:bg-gray-300 hover:text-gray-500"} bg-[#00c220] border border-solid border-[#00c220] rounded-3xl flex justify-center items-center text-white py-3 px-4  font-mono hover:bg-transparent hover:text-black transition-all duration-300 ease-in-out capitalize text-xs auto`}
                   >
-                  Save Changes
+                  Update
                   </button>
                 </div>
               </form>
