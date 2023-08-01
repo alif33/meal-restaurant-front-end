@@ -9,11 +9,11 @@ import { userFields } from "../../__lib__/config";
 
 const EditUserForm = ({
     users,
+    fetchUsers,
     hasUpdate,
     updateUser,
-    setHasUpdate,
-    fetchUsers
-})=>{
+    setHasUpdate
+  })=>{
 
     const [loading, setLoading] = useState();
     const [image, setImage] = useState();
@@ -83,16 +83,16 @@ const EditUserForm = ({
 
 
     const onSubmit = (data) => {
-      // setLoading(true);
+      setLoading(true);
 
-      updateData("/user", { 
+      updateData(`/user?_id=${updateUser}`, { 
         ...data,
       //   image
       }, auth?.token)
       .then((res) => {
         if(res.success){
           setLoading(false);
-          fetchUsers();
+          fetchUsers()
           toast.success(`${res.message}`);
           reset();
           setHasUpdate(!hasUpdate);

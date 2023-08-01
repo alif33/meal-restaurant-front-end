@@ -377,6 +377,7 @@ const Users = () => {
             <AddUserForm addUserForm={hasUpdate} setAddUserForm={setHasUpdate}>
               <EditUserForm 
                 users={users}
+                fetchUsers={fetchUsers}
                 hasUpdate={hasUpdate} 
                 updateUser={updateUser}
                 setHasUpdate={setHasUpdate} 
